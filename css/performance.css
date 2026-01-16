@@ -1,0 +1,360 @@
+/* 性能优化配置文件 */
+
+/* ==================== GPU 加速优化 ==================== */
+
+/* 强制使用 GPU 渲染 */
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 避免重绘的属性 */
+.no-reflow {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
+/* ==================== 动画性能优化 ==================== */
+
+/* 使用 transform 和 opacity 进行动画 */
+.animate-performance {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* 避免使用以下属性进行动画（会导致重排） */
+/* 避免动画：width, height, padding, margin, top, left, right, bottom */
+
+/* ==================== 字体渲染优化 ==================== */
+
+/* 字体显示优化 */
+body {
+    font-display: swap;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== 图片优化 ==================== */
+
+/* 图片懒加载占位 */
+img[data-src] {
+    background-color: #f0f0f0;
+    min-height: 200px;
+}
+
+/* 响应式图片 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ==================== 滚动性能优化 ==================== */
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 优化滚动容器 */
+.smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+/* ==================== 减少重绘 ==================== */
+
+/* 使用 contain 属性 */
+.contain-layout {
+    contain: layout;
+}
+
+.contain-paint {
+    contain: paint;
+}
+
+.contain-size {
+    contain: size;
+}
+
+/* ==================== CSS 变量优化 ==================== */
+
+:root {
+    /* 颜色变量 */
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --glass-blur: 20px;
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    
+    /* 动画变量 */
+    --transition-fast: 0.3s;
+    --transition-normal: 0.5s;
+    --transition-slow: 0.8s;
+    
+    /* 缓动函数 */
+    --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== 媒体查询优化 ==================== */
+
+/* 高 DPI 设备 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* 高清屏优化 */
+    .high-dpi-optimized {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    * {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* ==================== 可访问性优化 ==================== */
+
+/* 减少动画 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+    .glass {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border: 2px solid #000;
+    }
+    
+    .glass-dark {
+        background: rgba(0, 0, 0, 0.95) !important;
+        border: 2px solid #fff;
+    }
+}
+
+/* 暗色模式 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --glass-bg: rgba(30, 30, 30, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* ==================== 内容可见性优化 ==================== */
+
+/* 内容可见性 API */
+.content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1000px;
+}
+
+/* ==================== 关键 CSS 内联建议 ==================== */
+
+/* 以下 CSS 应该内联到 HTML 中以提高首屏渲染速度 */
+
+/* 
+.critical-css {
+    display: block;
+}
+*/
+
+/* ==================== 第三方字体优化 ==================== */
+
+/* 字体预加载 */
+/* 在 HTML 中添加：
+<link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>
+*/
+
+/* ==================== 图标优化 ==================== */
+
+/* 使用 SVG 图标代替图片 */
+.icon-svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+/* ==================== 按钮优化 ==================== */
+
+/* 按钮点击反馈 */
+button,
+.button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* ==================== 表单优化 ==================== */
+
+/* 表单控件优化 */
+input,
+textarea,
+select {
+    font-size: 16px; /* 防止 iOS 缩放 */
+}
+
+/* ==================== 视频优化 ==================== */
+
+/* 视频懒加载 */
+video {
+    loading: lazy;
+}
+
+/* ==================== 性能监控 ==================== */
+
+/* 开发模式下的性能指示器 */
+/* 在生产环境中移除 */
+/*
+.performance-indicator {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    font-size: 12px;
+    z-index: 10000;
+}
+*/
+
+/* ==================== 兼容性降级方案 ==================== */
+
+/* 不支持 backdrop-filter 的浏览器 */
+@supports not (backdrop-filter: blur(20px)) {
+    .glass {
+        background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .glass-dark {
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+
+/* 不支持 CSS 变量的浏览器 */
+@supports not (--custom: property) {
+    /* 提供降级样式 */
+}
+
+/* ==================== 移动端优化 ==================== */
+
+/* 触摸优化 */
+@media (hover: none) and (pointer: coarse) {
+    .hover-effect {
+        /* 移除悬停效果 */
+    }
+    
+    .touch-feedback {
+        /* 添加触摸反馈 */
+    }
+}
+
+/* ==================== 桌面端优化 ==================== */
+
+/* 鼠标优化 */
+@media (hover: hover) and (pointer: fine) {
+    .hover-effect {
+        /* 添加悬停效果 */
+    }
+}
+
+/* ==================== 网络优化 ==================== */
+
+/* 离线可用 */
+.offline-indicator {
+    display: none;
+}
+
+/* 当离线时显示 */
+body.offline .offline-indicator {
+    display: block;
+}
+
+/* ==================== 加载状态优化 ==================== */
+
+/* 骨架屏 */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ==================== 错误处理 ==================== */
+
+/* 图片加载失败 */
+img:not([src]),
+img[src=""],
+img[src^="data:"],
+img[loading="error"] {
+    background: #f0f0f0;
+    min-height: 100px;
+}
+
+/* ==================== 性能关键路径优化 ==================== */
+
+/* 阻塞渲染的 CSS 应该内联 */
+/* 非关键 CSS 应该异步加载 */
+
+/* 
+<link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="styles.css"></noscript>
+*/
+
+/* ==================== 内存优化 ==================== */
+
+/* 避免内存泄漏 */
+.fixed-position {
+    position: fixed;
+    /* 确保在不需要时移除 */
+}
+
+/* ==================== 动画帧率优化 ==================== */
+
+/* 60fps 优化 */
+@keyframes optimized-animation {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0;
+    }
+    100% {
+        transform: translate3d(100px, 0, 0);
+        opacity: 1;
+    }
+}
+
+/* ==================== 资源提示 ==================== */
+
+/* DNS 预解析 */
+/* <link rel="dns-prefetch" href="https://example.com"> */
+
+/* 预连接 */
+/* <link rel="preconnect" href="https://example.com"> */
+
+/* 预加载 */
+/* <link rel="preload" href="critical.js" as="script"> */
+
+/* 预获取 */
+/* <link rel="prefetch" href="next-page.js"> */

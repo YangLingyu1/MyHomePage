@@ -18,88 +18,21 @@
  * lrc为歌词，请用\n或\r将每行歌词隔开，否则无法识别
  * slrc为歌词文件路径 可有可无
  */
-//获取网易云音乐
-function music163(i) {
-	return "http://music.163.com/song/media/outer/url?id=" + i + ".mp3"
-}
 var mplayer_song = [
 	[
 		{
 			"basic": true,
-			"name": "Ricardo",
-			"singer": "某不知名白狼",
-			"img": "image/pic/head.jpg"
+			"name": "我的歌单",
+			"singer": "凌羽",
+			"img": "images/pic/head.jpg"
 		},
 		{
-			"name": "最后的旅行",
-			"singer": "Rainton桐",
-			"img": "http://p1.music.126.net/8qhWDWoNejyMcAAwAm2pNA==/17752714742397400.jpg?param=177y177",
-			"src": music163("423703394"),
-			"lrc": "[00:00.00]歌词加载中...",
-			"slrc": "audio/lrc/zuihoudeluxin.lrc"
-		},
-		{
-			"name": "樱花的短篇（奏(かなで) ）",
-			"singer": "千陵安浅",
-			"img": "http://p1.music.126.net/5boOknJ-Oo1Dr0o2IF690g==/16579535835744609.jpg?param=177y177",
-			"src": music163("41671021"),
-			"lrc": "[00:00.00]歌词加载中...",
-			"slrc": "audio/lrc/eyii.lrc"
-		},
-		{
-			"name": "依伊-致上杉绘梨衣（《龙族》同人）",
-			"singer": "琢彻",
-			"img": "http://p1.music.126.net/J-ciggWVRzfg1zch7sBJNQ==/18198016951733246.jpg?param=177y177",
-			"src": music163("423015999"),
-			"lrc": "[00:00.00]歌词加载中...",
-			"slrc": "audio/lrc/eyii.lrc"
-		},
-	],
-	[
-		{
-			"basic": true,
-			"name": "M",
-			"singer": "某不知名白狼",
-			"img": "image/pic/head.jpg"
-		},
-		{
-			"name": "Bad Apple!!!",
-			"singer": "Alstroemeria",
-			"img": "http://p1.music.126.net/l6J6zceZI5YtkmD6-PMnmw==/888405395266525.jpg?param=117y117",
-			"src": music163("22645196"),
-			//"src": "audio/Alstroemeria_Records-Bad_Apple!!.mp3",
-			"lrc": "",
-			"slrc": "audio/lrc/Alstroemeria_Records-Bad_Apple!!.lrc"
-		}
-	],
-	[
-		{
-			"basic": true,
-			"name": "Lu",
-			"singer": "某不知名白狼",
-			"img": "image/pic/head.jpg"
-		},
-		{
-			"name": "I'm So Happy",
-			"singer": "中原龍太郎",
-			"img": "http://p1.music.126.net/cxjF4-0CX9TXMF50zxgxXg==/2426622162526064.jpg?param=177y177",
-			"src": music163("26123157"),
-			"lrc": "",
-			"slrc": "audio/lrc/happy.lrc"
-		},
-		{
-			"name": "404",
-			"singer": "-",
-			"img": "images/404.jpg",
-			"src": "audio/404.mp3",
-			"lrc": ""
-		},
-		{
-			"name": "Undertale",
-			"singer": "Toby Fox",
-			"img": "http://p4.music.126.net/oZe-JSuWYAR8zSa29g9g0g==/3254554423361647.jpg?param=177y177",
-			"src": music163("39227624"),
-			"lrc": ""
+			"name": "给你呀",
+			"singer": "凌羽",
+			"img": "images/pic/head.jpg",
+			"src": "audio/music/给你呀.mp3",
+			"lrc": "[00:00.00]音乐播放中...",
+			"slrc": ""
 		}
 	]
 ];

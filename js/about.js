@@ -253,6 +253,8 @@ function btnChange(index, flag, speed) {
     } else {
         arrow.style.bottom = "50px"
     }
+    
+    changeVideoBackground(indexs);
 }
 
 //时间轴翻页
@@ -416,24 +418,27 @@ function addClick() {
 
     /*注册事件*/
     if (document.addEventListener) {
-        document.addEventListener('DOMMouseScroll', scrollFunc, false); //W3C
+        document.addEventListener('DOMMouseScroll', scrollFunc, { passive: true }); //W3C
     }
-    window.onmousewheel = document.onmousewheel = scrollFunc; //IE/Opera/Chrome/Safari
+    window.addEventListener('mousewheel', scrollFunc, { passive: true }); //IE/Opera/Chrome/Safari
 
     var iB = true;
+    var resizeTimeout;
     //监听窗口改变
-    window.onresize = function () {
-        //document.getElementsByTagName("html")[0].style.fontSize = document.documentElement.clientWidth / 20 + 'px';
-        h = window.innerHeight;
-        w = window.innerWidth;
-        if (w / h >= 1920 / 1080) {
-            iB = true;
-        } else {
-            iB = false;
-        }
-        divMove(indexs);
-        setTime_li()
-    }
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function () {
+            h = window.innerHeight;
+            w = window.innerWidth;
+            if (w / h >= 1920 / 1080) {
+                iB = true;
+            } else {
+                iB = false;
+            }
+            divMove(indexs);
+            setTime_li();
+        }, 100);
+    });
 }
 
 /*计时函数
@@ -449,5 +454,24 @@ function timer() {
         return t - time;
     };
 };
+
+function changeVideoBackground(index) {
+    var videos = document.querySelectorAll('.video-background');
+    if (videos.length === 0) return;
+    
+    var videoIndex = Math.min(index, videos.length - 1);
+    
+    videos.forEach(function(video, i) {
+        if (i === videoIndex) {
+            video.classList.add('active');
+            video.play().catch(function(error) {
+                console.log('视频播放失败:', error);
+            });
+        } else {
+            video.classList.remove('active');
+            video.pause();
+        }
+    });
+}
 
 about_main()
