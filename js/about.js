@@ -465,13 +465,21 @@ function changeVideoBackground(index) {
     
     videos.forEach(function(video, i) {
         if (i === videoIndex) {
-            video.classList.add('active');
-            video.play().catch(function(error) {
-                console.log('视频播放失败:', error);
-            });
+            if (!video.classList.contains('active')) {
+                video.classList.add('active');
+                video.currentTime = 0;
+                var playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(function(error) {
+                        console.log('视频播放失败:', error);
+                    });
+                }
+            }
         } else {
-            video.classList.remove('active');
-            video.pause();
+            if (video.classList.contains('active')) {
+                video.classList.remove('active');
+                video.pause();
+            }
         }
     });
 }
