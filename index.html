@@ -21,9 +21,37 @@
 	<link rel="preload" href="images/icon/bilibili.png" as="image">
 	<link rel="preload" href="images/icon/douyin.png" as="image">
 	<link rel="preload" href="images/icon/arrowhead.png" as="image">
+	<link rel="preload" href="images/icon/arrowleft.png" as="image">
+	<link rel="preload" href="images/icon/arrowright.png" as="image">
+	<link rel="preload" href="images/pic/2.jpg" as="image">
+	<link rel="preload" href="images/background1.mp4" as="video">
 	<script src="js/jquery-3.0.0.js"></script>
-	<script src="js/project.js"></script>
-	<script src="js/zzbaidu.js"></script>
+	<script defer src="js/project.js"></script>
+	<script async src="js/zzbaidu.js"></script>
+	<script>
+		if ('PerformanceObserver' in window) {
+			const perfObserver = new PerformanceObserver((list) => {
+				for (const entry of list.getEntries()) {
+					console.log('[性能监控]', entry.name, ':', entry.duration.toFixed(2) + 'ms');
+				}
+			});
+			perfObserver.observe({ entryTypes: ['measure', 'navigation'] });
+		}
+		
+		window.addEventListener('load', function() {
+			setTimeout(function() {
+				const perfData = window.performance.timing;
+				const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+				const domReadyTime = perfData.domContentLoadedEventEnd - perfData.navigationStart;
+				console.log('[性能统计] 页面总加载时间:', pageLoadTime + 'ms');
+				console.log('[性能统计] DOM就绪时间:', domReadyTime + 'ms');
+				
+				if (pageLoadTime > 3000) {
+					console.warn('[性能警告] 页面加载时间超过3秒，建议进一步优化');
+				}
+			}, 0);
+		});
+	</script>
 </head>
 
 <body onload="loaddone()">
@@ -31,16 +59,16 @@
 		<video id="videoBackground1" class="video-background active" muted loop playsinline preload="auto">
 			<source src="images/background1.mp4" type="video/mp4">
 			您的浏览器不支持视频播放。
-	</video>
-		<video id="videoBackground2" class="video-background" muted loop playsinline preload="none">
+		</video>
+		<video id="videoBackground2" class="video-background" muted loop playsinline preload="metadata">
 			<source src="images/background2.mp4" type="video/mp4">
 			您的浏览器不支持视频播放。
 		</video>
-		<video id="videoBackground3" class="video-background" muted loop playsinline preload="none">
+		<video id="videoBackground3" class="video-background" muted loop playsinline preload="metadata">
 			<source src="images/background3.mp4" type="video/mp4">
 			您的浏览器不支持视频播放。
 		</video>
-		<video id="videoBackground4" class="video-background" muted loop playsinline preload="none">
+		<video id="videoBackground4" class="video-background" muted loop playsinline preload="metadata">
 			<source src="images/background4.mp4" type="video/mp4">
 			您的浏览器不支持视频播放。
 		</video>
@@ -334,7 +362,7 @@
 			</div>
 		</footer>
 	</main>
-	<script type="text/javascript" src="js/about.js"></script>
+	<script defer src="js/about.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const bgMusic = document.getElementById('bgMusic');
@@ -785,17 +813,40 @@
 					}
 				}
 			});
-			
-			initPlayer();
-			
-			const videos = document.querySelectorAll('.video-background');
-			const activeVideo = document.querySelector('.video-background.active');
-			if (activeVideo) {
-				activeVideo.play().catch(function(error) {
-					console.log('视频背景播放失败:', error);
-				});
+		
+		let playerInitialized = false;
+		
+		function lazyInitPlayer() {
+			if (!playerInitialized) {
+				initPlayer();
+				playerInitialized = true;
 			}
+		}
+		
+		playBtn.addEventListener('click', function() {
+			lazyInitPlayer();
 		});
+		
+		nextBtn.addEventListener('click', function() {
+			lazyInitPlayer();
+		});
+		
+		prevBtn.addEventListener('click', function() {
+			lazyInitPlayer();
+		});
+		
+		listBtn.addEventListener('click', function() {
+			lazyInitPlayer();
+		});
+		
+		const videos = document.querySelectorAll('.video-background');
+		const activeVideo = document.querySelector('.video-background.active');
+		if (activeVideo) {
+			activeVideo.play().catch(function(error) {
+				console.log('视频背景播放失败:', error);
+			});
+		}
+	});
 	</script>
 </body>
 </html>

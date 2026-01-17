@@ -468,6 +468,9 @@ function changeVideoBackground(index) {
             if (!video.classList.contains('active')) {
                 video.classList.add('active');
                 video.currentTime = 0;
+                if (video.preload !== 'auto') {
+                    video.preload = 'auto';
+                }
                 var playPromise = video.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(function(error) {
