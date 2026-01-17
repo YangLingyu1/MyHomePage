@@ -788,11 +788,12 @@
 			initPlayer();
 			
 			const videos = document.querySelectorAll('.video-background');
-			videos.forEach(function(video) {
-				video.play().catch(function(error) {
+			const activeVideo = document.querySelector('.video-background.active');
+			if (activeVideo) {
+				activeVideo.play().catch(function(error) {
 					console.log('视频背景播放失败:', error);
 				});
-			});
+			}
 		});
 	</script>
 </body>
