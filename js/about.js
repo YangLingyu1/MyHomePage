@@ -14,11 +14,13 @@ function about_main() {
     }
     const w1 = window.innerWidth;
     const player = document.querySelector('.yly_music');
-    if (w1 < 2000) {
-        player.style.display = 'none';
-      } else {
-        player.style.display = 'block';
-      }
+    if (player) {
+        if (w1 < 2000) {
+            player.style.display = 'none';
+          } else {
+            player.style.display = 'block';
+          }
+    }
     //测试用用
     if (debug) logout('测试');
     //阻止手势
