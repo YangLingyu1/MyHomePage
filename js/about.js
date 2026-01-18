@@ -1110,7 +1110,7 @@ function addClick() {
         if (e.wheelDelta) { //IE/Opera/Chrome
             if (oB == true) {
                 //向下滑动
-                if (e.wheelDelta >= 120) {
+                if (e.wheelDelta >= 100) {
                     oB = false;
                     indexs--;
                     btnChange(indexs, true, 1);
@@ -1118,7 +1118,7 @@ function addClick() {
                         oB = true;
                     }, 700);
 
-                } else if (e.wheelDelta <= -120) {
+                } else if (e.wheelDelta <= -100) {
                     oB = false;
                     //向上滑动
                     indexs++;

@@ -49,6 +49,10 @@
     const modeIcons = ['🔁', '🔀', '1️⃣'];
     const modeNames = ['顺序播放', '随机播放', '单曲循环'];
 
+    let preloadedAudios = {};
+    let preloadQueue = [];
+    let isPreloading = false;
+
     function scanMusicFiles() {
 
         const musicFiles = [
@@ -72,10 +76,54 @@
     function loadSong(index) {
         if (index >= 0 && index < playlist.length) {
             currentIndex = index;
-            bgMusic.src = playlist[index].src;
+            
+            if (preloadedAudios[index]) {
+                const preloaded = preloadedAudios[index];
+                bgMusic.src = preloaded.src;
+                delete preloadedAudios[index];
+            } else {
+                bgMusic.src = playlist[index].src;
+            }
+            
             musicTitle.textContent = playlist[index].title;
             updatePlaylistActive();
         }
+    }
+
+    function preloadSong(index) {
+        if (index >= 0 && index < playlist.length && index !== currentIndex && !preloadedAudios[index]) {
+            const audio = new Audio();
+            audio.preload = 'auto';
+            audio.src = playlist[index].src;
+            audio.load();
+            preloadedAudios[index] = audio;
+        }
+    }
+
+    function startPreloading() {
+        if (isPreloading) return;
+        isPreloading = true;
+
+        preloadQueue = [];
+        for (let i = 0; i < playlist.length; i++) {
+            if (i !== currentIndex) {
+                preloadQueue.push(i);
+            }
+        }
+
+        preloadNextSong();
+    }
+
+    function preloadNextSong() {
+        if (preloadQueue.length === 0) {
+            isPreloading = false;
+            return;
+        }
+
+        const index = preloadQueue.shift();
+        preloadSong(index);
+
+        setTimeout(preloadNextSong, 2000);
     }
 
     function playSong() {
@@ -146,6 +194,11 @@
                 volumeIcon.textContent = '🔊';
             }
         }
+
+        setTimeout(function() {
+            playSong();
+            startPreloading();
+        }, 3000);
     }
 
     function renderPlaylist() {
@@ -180,6 +233,11 @@
             if (song.isLocal) {
                 URL.revokeObjectURL(song.src);
             }
+            
+            if (preloadedAudios[index]) {
+                delete preloadedAudios[index];
+            }
+            
             playlist.splice(index, 1);
 
             if (index === currentIndex) {
@@ -410,6 +468,12 @@
             playerInitialized = true;
         }
     }
+
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            lazyInitPlayer();
+        }, 1000);
+    });
 
     playBtn.addEventListener('click', function() {
         lazyInitPlayer();

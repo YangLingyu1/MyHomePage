@@ -37,12 +37,27 @@ function makeDraggable(element, handle, options = {}) {
         dragOffsetY = e.clientY - rect.top;
         currentX = rect.left;
         currentY = rect.top;
-        e.preventDefault();
 
         if (typeof onDragStart === 'function') {
             onDragStart(e, currentX, currentY);
         }
     });
+
+    handle.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        element.classList.add('dragging');
+        const touch = e.touches[0];
+        const rect = element.getBoundingClientRect();
+        dragOffsetX = touch.clientX - rect.left;
+        dragOffsetY = touch.clientY - rect.top;
+        currentX = rect.left;
+        currentY = rect.top;
+        e.preventDefault();
+
+        if (typeof onDragStart === 'function') {
+            onDragStart(e, currentX, currentY);
+        }
+    }, { passive: false });
 
     document.addEventListener('mousemove', function(e) {
         if (!isDragging) return;
@@ -83,7 +98,62 @@ function makeDraggable(element, handle, options = {}) {
         });
     });
 
+    document.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+        }
+
+        animationFrameId = requestAnimationFrame(function() {
+            const touch = e.touches[0];
+            let newX = touch.clientX - dragOffsetX;
+            let newY = touch.clientY - dragOffsetY;
+
+            if (boundary) {
+                const maxX = boundary.maxX !== undefined ? boundary.maxX : window.innerWidth - element.offsetWidth;
+                const maxY = boundary.maxY !== undefined ? boundary.maxY : window.innerHeight - element.offsetHeight;
+                const minX = boundary.minX !== undefined ? boundary.minX : 0;
+                const minY = boundary.minY !== undefined ? boundary.minY : 0;
+
+                newX = Math.max(minX, Math.min(newX, maxX));
+                newY = Math.max(minY, Math.min(newY, maxY));
+            } else {
+                const maxX = window.innerWidth - element.offsetWidth;
+                const maxY = window.innerHeight - element.offsetHeight;
+                newX = Math.max(0, Math.min(newX, maxX));
+                newY = Math.max(0, Math.min(newY, maxY));
+            }
+
+            element.style.left = newX + 'px';
+            element.style.top = newY + 'px';
+            element.style.right = 'auto';
+
+            currentX = newX;
+            currentY = newY;
+
+            if (typeof onDrag === 'function') {
+                onDrag(e, currentX, currentY);
+            }
+        });
+    }, { passive: false });
+
     document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            element.classList.remove('dragging');
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+
+            if (typeof onDragEnd === 'function') {
+                onDragEnd(currentX, currentY);
+            }
+        }
+    });
+
+    document.addEventListener('touchend', function() {
         if (isDragging) {
             isDragging = false;
             element.classList.remove('dragging');
