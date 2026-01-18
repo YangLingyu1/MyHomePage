@@ -3,6 +3,10 @@ let indexs02 = 0;
 let startTime;
 const flags = {};
 
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+
 function about_main() {
     startTime = new timer;
     if (w < 500) {
@@ -1064,31 +1068,36 @@ function changeVideoBackground(index) {
         if (i === videoIndex) {
             if (!video.classList.contains('active')) {
                 video.classList.add('active');
-                video.currentTime = 0;
                 
-                const source = video.querySelector('source');
-                if (source && source.dataset.src) {
-                    source.src = source.dataset.src;
-                    delete source.dataset.src;
-                }
-                
-                if (video.preload !== 'auto') {
-                    video.preload = 'auto';
-                }
-                
-                video.load();
-                
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log('视频播放失败:', error);
-                    });
+                if (!isMobileDevice()) {
+                    video.currentTime = 0;
+                    
+                    const source = video.querySelector('source');
+                    if (source && source.dataset.src) {
+                        source.src = source.dataset.src;
+                        delete source.dataset.src;
+                    }
+                    
+                    if (video.preload !== 'auto') {
+                        video.preload = 'auto';
+                    }
+                    
+                    video.load();
+                    
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log('视频播放失败:', error);
+                        });
+                    }
                 }
             }
         } else {
             if (video.classList.contains('active')) {
                 video.classList.remove('active');
-                video.pause();
+                if (!isMobileDevice()) {
+                    video.pause();
+                }
             }
         }
     });
