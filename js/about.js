@@ -18,6 +18,18 @@ function about_main() {
         player.style.display = w1 < 2000 ? 'none' : 'block';
     }
     if (debug) logout('测试');
+    
+    if (isMobileDevice()) {
+        const videos = document.querySelectorAll('.video-background');
+        videos.forEach(video => {
+            const source = video.querySelector('source');
+            if (source) {
+                source.src = '';
+                video.preload = 'none';
+            }
+        });
+    }
+    
     loading();
     lastInfo();
 }
