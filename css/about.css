@@ -339,7 +339,7 @@
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), filter 1.5s cubic-bezier(0.4, 0, 0.2, 1);
     filter: brightness(1.0) contrast(1.0) saturate(1.0);
     will-change: opacity;
 }
@@ -347,6 +347,10 @@
 .video-background.active {
     opacity: 1;
     filter: brightness(1.05) contrast(1.02) saturate(1.05);
+}
+
+.video-background.no-transition {
+    transition: none !important;
 }
 
 .toggle-view-btn {

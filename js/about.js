@@ -40,6 +40,7 @@ function about_main() {
                 source.src = '';
                 video.preload = 'none';
             }
+            video.classList.add('no-transition');
         });
         
         const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
@@ -60,6 +61,7 @@ function about_main() {
                 source.src = '';
                 video.preload = 'none';
             }
+            video.classList.add('no-transition');
         });
         
         const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
@@ -82,6 +84,24 @@ function about_main() {
         if (musicPlayer) {
             musicPlayer.style.transform = 'scale(1)';
             musicPlayer.style.transition = 'transform 0.3s ease';
+        }
+        
+        const firstVideo = document.getElementById('videoBackground1');
+        if (firstVideo) {
+            const source = firstVideo.querySelector('source');
+            if (source && source.dataset.src) {
+                source.src = source.dataset.src;
+                delete source.dataset.src;
+                firstVideo.preload = 'auto';
+                firstVideo.load();
+                
+                const playPromise = firstVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log('第一个视频播放失败:', error);
+                    });
+                }
+            }
         }
     }
     
@@ -543,6 +563,10 @@ function initTrail() {
 
 //后台预加载其他视频壁纸
 function preloadVideos() {
+    if (isMobileDevice()) {
+        return;
+    }
+    
     const videos = document.querySelectorAll('.video-background');
     if (videos.length === 0) return;
     
