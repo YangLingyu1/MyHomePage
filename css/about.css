@@ -501,22 +501,6 @@ body.wallpaper-mode .toggle-view-btn:hover {
                 transform 0.4s var(--transition-easing);
 }
 
-.music-player::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        transparent 40%);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    border-radius: 30px;
-}
-
 .music-player:hover {
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 
@@ -529,10 +513,6 @@ body.wallpaper-mode .toggle-view-btn:hover {
 
 .music-player:hover:not(.dragging) {
     transform: translateY(-2px);
-}
-
-.music-player:hover::before {
-    opacity: 1;
 }
 
 .music-player.dragging {
@@ -1534,6 +1514,9 @@ body {
 }
 
 .time-widget {
+    position: fixed;
+    top: 100px;
+    left: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -2494,6 +2477,7 @@ body {
     position: relative;
     left: -160%;
     transition: left ease 0.8s;
+    transform-style: preserve-3d;
 }
 
 
@@ -2522,6 +2506,7 @@ body {
     float: left;
     height: 100%;
     position: relative;
+    transform-style: preserve-3d;
 }
 
 .timeUl li::before {
@@ -2569,8 +2554,10 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 15px;
     transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    will-change: transform, box-shadow;
 }
 
 .timeUl li div::before {
@@ -2597,7 +2584,7 @@ body {
         inset 0 -1px 0 rgba(255, 255, 255, 0.3),
         0 0 0 1px rgba(255, 255, 255, 0.15),
         0 0 40px rgba(255, 255, 255, 0.1);
-    transform: translateY(-5px);
+    transform: translateY(-5px) translateZ(10px) rotateX(3deg) rotateY(3deg);
 }
 
 .timeUl li:hover div::before {
