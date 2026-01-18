@@ -23,9 +23,6 @@ function isMobileDevice() {
 
 function about_main() {
     startTime = new timer;
-    if (w < 500) {
-        alert('当前屏幕分辨率过低，可能无法显示全部内容');
-    }
     const w1 = window.innerWidth;
     const player = document.querySelector('.yly_music');
     if (player) {
@@ -749,7 +746,11 @@ window.updateTimeWidgetVisibility = function() {
     var timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
     if (!timeWidgetWrapper) return;
     
-    if (window.isWallpaperMode) {
+    const deviceType = getDeviceType();
+    
+    if (deviceType === 'mobile' || deviceType === 'tablet') {
+        timeWidgetWrapper.classList.add('hidden');
+    } else if (window.isWallpaperMode) {
         timeWidgetWrapper.classList.add('hidden');
     } else if (indexs === 0) {
         timeWidgetWrapper.classList.remove('hidden');
@@ -1170,40 +1171,51 @@ function changeVideoBackground(index) {
     
     const videoIndex = Math.min(index, videos.length - 1);
     
+    if (isMobileDevice()) {
+        videos.forEach((video, i) => {
+            if (i === videoIndex) {
+                if (!video.classList.contains('active')) {
+                    video.classList.add('active');
+                }
+            } else {
+                if (video.classList.contains('active')) {
+                    video.classList.remove('active');
+                }
+            }
+        });
+        return;
+    }
+    
     videos.forEach((video, i) => {
         if (i === videoIndex) {
             if (!video.classList.contains('active')) {
                 video.classList.add('active');
                 
-                if (!isMobileDevice()) {
-                    video.currentTime = 0;
-                    
-                    const source = video.querySelector('source');
-                    if (source && source.dataset.src) {
-                        source.src = source.dataset.src;
-                        delete source.dataset.src;
-                    }
-                    
-                    if (video.preload !== 'auto') {
-                        video.preload = 'auto';
-                    }
-                    
-                    video.load();
-                    
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(error => {
-                            console.log('视频播放失败:', error);
-                        });
-                    }
+                video.currentTime = 0;
+                
+                const source = video.querySelector('source');
+                if (source && source.dataset.src) {
+                    source.src = source.dataset.src;
+                    delete source.dataset.src;
+                }
+                
+                if (video.preload !== 'auto') {
+                    video.preload = 'auto';
+                }
+                
+                video.load();
+                
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log('视频播放失败:', error);
+                    });
                 }
             }
         } else {
             if (video.classList.contains('active')) {
                 video.classList.remove('active');
-                if (!isMobileDevice()) {
-                    video.pause();
-                }
+                video.pause();
             }
         }
     });
