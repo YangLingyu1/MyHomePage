@@ -2576,7 +2576,18 @@ body {
     border-radius: 15px;
 }
 
-.timeUl li:hover div {
+.timeUl li:nth-child(odd):hover div {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.15),
+        0 0 40px rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px) translateZ(10px) rotateX(-3deg) rotateY(3deg);
+}
+
+.timeUl li:nth-child(even):hover div {
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 
         0 8px 32px rgba(0, 0, 0, 0.12),
@@ -2587,7 +2598,11 @@ body {
     transform: translateY(-5px) translateZ(10px) rotateX(3deg) rotateY(3deg);
 }
 
-.timeUl li:hover div::before {
+.timeUl li:nth-child(odd):hover div::before {
+    opacity: 1;
+}
+
+.timeUl li:nth-child(even):hover div::before {
     opacity: 1;
 }
 
