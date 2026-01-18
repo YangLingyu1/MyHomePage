@@ -3,8 +3,22 @@ let indexs02 = 0;
 let startTime;
 const flags = {};
 
+function getDeviceType() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const aspectRatio = width / height;
+    
+    if (width < 768 || aspectRatio < 1.5) {
+        return 'mobile';
+    } else if (width < 1024) {
+        return 'tablet';
+    } else {
+        return 'desktop';
+    }
+}
+
 function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+    return getDeviceType() === 'mobile';
 }
 
 function about_main() {
@@ -19,7 +33,9 @@ function about_main() {
     }
     if (debug) logout('测试');
     
-    if (isMobileDevice()) {
+    const deviceType = getDeviceType();
+    
+    if (deviceType === 'mobile') {
         const videos = document.querySelectorAll('.video-background');
         videos.forEach(video => {
             const source = video.querySelector('source');
@@ -28,7 +44,88 @@ function about_main() {
                 video.preload = 'none';
             }
         });
+        
+        const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
+        if (timeWidgetWrapper) {
+            timeWidgetWrapper.classList.add('hidden');
+        }
+        
+        const musicPlayer = document.getElementById('musicPlayer');
+        if (musicPlayer) {
+            musicPlayer.style.transform = 'scale(0.6)';
+            musicPlayer.style.transition = 'transform 0.3s ease';
+        }
+    } else if (deviceType === 'tablet') {
+        const videos = document.querySelectorAll('.video-background');
+        videos.forEach(video => {
+            const source = video.querySelector('source');
+            if (source) {
+                source.src = '';
+                video.preload = 'none';
+            }
+        });
+        
+        const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
+        if (timeWidgetWrapper) {
+            timeWidgetWrapper.classList.add('hidden');
+        }
+        
+        const musicPlayer = document.getElementById('musicPlayer');
+        if (musicPlayer) {
+            musicPlayer.style.transform = 'scale(0.8)';
+            musicPlayer.style.transition = 'transform 0.3s ease';
+        }
+    } else {
+        const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
+        if (timeWidgetWrapper) {
+            timeWidgetWrapper.classList.remove('hidden');
+        }
+        
+        const musicPlayer = document.getElementById('musicPlayer');
+        if (musicPlayer) {
+            musicPlayer.style.transform = 'scale(1)';
+            musicPlayer.style.transition = 'transform 0.3s ease';
+        }
     }
+    
+    window.addEventListener('resize', function() {
+        const currentDeviceType = getDeviceType();
+        
+        if (currentDeviceType === 'mobile') {
+            const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
+            if (timeWidgetWrapper) {
+                timeWidgetWrapper.classList.add('hidden');
+            }
+            
+            const musicPlayer = document.getElementById('musicPlayer');
+            if (musicPlayer) {
+                musicPlayer.style.transform = 'scale(0.6)';
+                musicPlayer.style.transition = 'transform 0.3s ease';
+            }
+        } else if (currentDeviceType === 'tablet') {
+            const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
+            if (timeWidgetWrapper) {
+                timeWidgetWrapper.classList.add('hidden');
+            }
+            
+            const musicPlayer = document.getElementById('musicPlayer');
+            if (musicPlayer) {
+                musicPlayer.style.transform = 'scale(0.8)';
+                musicPlayer.style.transition = 'transform 0.3s ease';
+            }
+        } else {
+            const timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
+            if (timeWidgetWrapper) {
+                timeWidgetWrapper.classList.remove('hidden');
+            }
+            
+            const musicPlayer = document.getElementById('musicPlayer');
+            if (musicPlayer) {
+                musicPlayer.style.transform = 'scale(1)';
+                musicPlayer.style.transition = 'transform 0.3s ease';
+            }
+        }
+    });
     
     loading();
     lastInfo();
@@ -649,20 +746,17 @@ function initTimeDisplay() {
 }
 
 window.updateTimeWidgetVisibility = function() {
-    var timeWidget = document.getElementById('timeWidget');
-    if (!timeWidget) return;
+    var timeWidgetWrapper = document.getElementById('timeWidgetWrapper');
+    if (!timeWidgetWrapper) return;
     
     if (window.isWallpaperMode) {
-        timeWidget.style.opacity = '0';
-        timeWidget.style.pointerEvents = 'none';
+        timeWidgetWrapper.classList.add('hidden');
     } else if (indexs === 0) {
-        timeWidget.style.opacity = '1';
-        timeWidget.style.pointerEvents = 'auto';
+        timeWidgetWrapper.classList.remove('hidden');
     } else {
-        timeWidget.style.opacity = '0';
-        timeWidget.style.pointerEvents = 'none';
+        timeWidgetWrapper.classList.add('hidden');
     }
-}
+};
 
 //淡入文字
 let indexs01 = 0;
