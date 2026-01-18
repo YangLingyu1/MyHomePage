@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>凌羽的个人主页 - About</title>
-	<meta name="viewport" content="width=device-width,initial-scale=0.7,maximum-scale=1.0,user-scalable=no">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0,user-scalable=yes">
 	<meta name="apple-mobile-app-capable" content="yes">
 	<meta name="apple-mobile-app-status-bar-style" content="black">
 	<meta name="description" content="凌羽拂星坠，小谷听溪闲。个人主页，展示凌羽的编程经历、爱好和联系方式。">
@@ -17,15 +17,10 @@
 	<link rel="stylesheet" type="text/css" href="css/about.css?v=37">
 	<link rel="stylesheet" type="text/css" href="css/process.css?v=37">
 	<link rel="preload" href="images/pic/head.jpg" as="image">
-	<link rel="preload" href="images/icon/github.png" as="image">
-	<link rel="preload" href="images/icon/bilibili.png" as="image">
-	<link rel="preload" href="images/icon/douyin.png" as="image">
 	<link rel="preload" href="images/icon/arrowhead.png" as="image">
-	<link rel="preload" href="images/icon/arrowleft.png" as="image">
-	<link rel="preload" href="images/icon/arrowright.png" as="image">
-	<link rel="preload" href="images/pic/2.jpg" as="image">
 	<link rel="preload" href="images/background1.mp4" as="video">
-	<script src="js/jquery-3.0.0.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+	<script src="js/draggable.js"></script>
 	<script defer src="js/project.js"></script>
 	<script async src="js/zzbaidu.js"></script>
 	<script>
@@ -55,36 +50,65 @@
 </head>
 
 <body onload="loaddone()">
+	<div id="loadingScreen" class="loading-screen">
+		<div class="loading-particles" id="loadingParticles"></div>
+		<div class="loading-content">
+			<div class="loading-spinner">
+				<div class="spinner-ring"></div>
+				<div class="spinner-ring"></div>
+				<div class="spinner-ring"></div>
+				<div class="spinner-ring"></div>
+			</div>
+			<div class="loading-text">
+				<span class="loading-text-char">L</span>
+				<span class="loading-text-char">O</span>
+				<span class="loading-text-char">A</span>
+				<span class="loading-text-char">D</span>
+				<span class="loading-text-char">I</span>
+				<span class="loading-text-char">N</span>
+				<span class="loading-text-char">G</span>
+			</div>
+			<div class="loading-progress">
+				<div class="loading-progress-bar"></div>
+			</div>
+			<div class="loading-percentage">0%</div>
+		</div>
+	</div>
 	<div class="video-backgrounds">
-		<video id="videoBackground1" class="video-background active" muted loop playsinline preload="auto">
+		<video id="videoBackground1" class="video-background active" muted loop playsinline preload="metadata" poster="images/pic/2.jpg">
 			<source src="images/background1.mp4" type="video/mp4">
 			您的浏览器不支持视频播放。
 		</video>
-		<video id="videoBackground2" class="video-background" muted loop playsinline preload="metadata">
-			<source src="images/background2.mp4" type="video/mp4">
+		<video id="videoBackground2" class="video-background" muted loop playsinline preload="none" poster="images/pic/2.jpg">
+			<source data-src="images/background2.mp4" src="" type="video/mp4">
 			您的浏览器不支持视频播放。
 		</video>
-		<video id="videoBackground3" class="video-background" muted loop playsinline preload="metadata">
-			<source src="images/background3.mp4" type="video/mp4">
+		<video id="videoBackground3" class="video-background" muted loop playsinline preload="none" poster="images/pic/2.jpg">
+			<source data-src="images/background3.mp4" src="" type="video/mp4">
 			您的浏览器不支持视频播放。
 		</video>
-		<video id="videoBackground4" class="video-background" muted loop playsinline preload="metadata">
-			<source src="images/background4.mp4" type="video/mp4">
+		<video id="videoBackground4" class="video-background" muted loop playsinline preload="none" poster="images/pic/2.jpg">
+			<source data-src="images/background4.mp4" src="" type="video/mp4">
 			您的浏览器不支持视频播放。
 		</video>
 	</div>
+	<canvas id="fireworksCanvas" class="fireworks"></canvas>
+	<canvas id="trailCanvas" class="trail"></canvas>
 	<div class="video-overlay"></div>
+	<button id="toggleViewBtn" class="toggle-view-btn" title="切换视图" aria-label="切换视图">
+		<span class="toggle-icon">🎬</span>
+	</button>
 	<header class="head">
 		<div class="head_logo_div">
-			<img class="logo_img" src="images/pic/head.jpg" alt="凌羽头像">
+			<img class="logo_img" src="images/pic/head.jpg" alt="凌羽头像" loading="lazy">
 		</div>
 		<div class="head_nav_div">
 			<nav class="head_nav" aria-label="主导航">
 				<ul id="nav_ul">
 					<li class="nav_li_on nav_ul_li">主页</li>
-					<li class="nav_ul_li">计划</li>
-					<li class="nav_ul_li">经历</li>
 					<li class="nav_ul_li">爱好</li>
+					<li class="nav_ul_li">经历</li>
+					<li class="nav_ul_li">日记</li>
 					<li class="nav_ul_li">联系方式</li>
 					<li id="huam"></li>
 				</ul>
@@ -118,7 +142,7 @@
 			<input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="80" aria-label="音量控制">
 		</div>
 		<div class="music-info">
-			<span class="music-title" id="musicTitle">给你呀</span>
+			<span class="music-title" id="musicTitle">lulala(汉语)</span>
 		</div>
 		<div class="playlist-container" id="playlistContainer">
 			<div class="playlist-header">
@@ -131,7 +155,19 @@
 			<ul class="playlist" id="playlist"></ul>
 		</div>
 		<input type="file" id="fileInput" accept="audio/*" style="display: none;">
-		<div class="modal-overlay" id="modalOverlay">
+	</div>
+	<div class="time-widget" id="timeWidget">
+		<div class="time-drag-handle" id="timeDragHandle" title="拖拽移动时间组件">
+			<span class="time-drag-icon">⋮⋮</span>
+		</div>
+		<div class="time-content">
+			<div class="time-display-wrapper">
+				<span class="time-widget-text" id="currentTime"></span>
+				<span class="date-widget-text" id="currentDate"></span>
+			</div>
+		</div>
+	</div>
+	<div class="modal-overlay" id="modalOverlay">
 			<div class="modal" id="addSongModal">
 				<div class="modal-header">
 					<h3>添加歌曲</h3>
@@ -166,7 +202,7 @@
 		<li></li>
 	</ul>
 	<div id="arrow_img" class="arrow_div" aria-label="向下滚动提示">
-		<img class="arrow_img" src="images/icon/arrowhead.png" alt="向下箭头">
+		<img class="arrow_img" src="images/icon/arrowhead.png" alt="向下箭头" loading="lazy">
 	</div>
 	<main class="wrapBox" id="wrapBox" style="top:0px;">
 		<section class="box bg01" id="box" aria-labelledby="home-title">
@@ -210,7 +246,7 @@
 						</path>
 					</svg>
 
-					<img id="head" onclick="headclick()" class="head_img" src="images/pic/head.jpg" alt="凌羽头像">
+					<img id="head" onclick="headclick()" class="head_img" src="images/pic/head.jpg" alt="凌羽头像" loading="lazy">
 				</div>
 				<h1 class="title" id="home-title">凌羽</h1>
 				<h2 class="title_h2">越努力，越幸运</h2>
@@ -219,6 +255,7 @@
 					<p>不负明天，不负现在</p>
 					<p>不负来时路</p>
 				</div>
+				<div class="glass-shine"></div>
 			</div>
 		</section>
 
@@ -244,6 +281,7 @@
 					<p></p>
 					<p>有人相爱</p>
 				</div>
+				<div class="glass-shine"></div>
 			</div>
 		</section>
 
@@ -253,17 +291,17 @@
 					<li>
 						<div>
 							<time datetime="2023-09-01">2023.09.01</time>
-							<p>第一次学习C语言</p>
+							<p>与编程的初次相遇，从C语言开始</p>
 							<p>printf("Hello World!")</p>
-							<p>励志成为一名热爱编程的程序员</p>
+							<p>那时便暗自期许：要成为热爱代码的程序员</p>
 						</div>
 					</li>
 
 					<li>
 						<div>
 							<time datetime="2024-04-12">2024.04.12</time>
-							<p>在b站大学学习java、C#、Unity</p>
-							<p>我想制作游戏，能制作出作品我很开心</p>
+							<p>泡在B站的日子里，啃下Java、C#与Unity</p>
+							<p>心底藏着一个小目标：做出属于自己的游戏、网站，指尖敲出的每一行代码，都满是欢喜</p>
 							<p>System.out.println("Hello World!");</p>
 							<p>Console.WriteLine("Hello World!");</p>
 						</div>
@@ -272,9 +310,9 @@
 					<li>
 						<div>
 							<time datetime="2025-05-01">2025.05.01</time>
-							<p>和我的恋人一起去旅游</p>
-							<p>我们在另一座城市生活</p>
-							<p>俩个人永远在一起</p>
+							<p>和喜欢的人奔赴一座陌生的城</p>
+							<p>海风绕过高楼，夜色揉着灯火，步履所至，皆是温柔</p>
+							<p></p>
 						</div>
 					</li>
 
@@ -282,8 +320,8 @@
 						<div>
 							<br>
 							<h1 id="experience-title">E.N.D</h1>
-							<p>坚持是最大的幸运，回头望去：已经走过多长的路</p>
-							<button name="play_music" onclick="player.play(0,0)" aria-label="播放背景音乐：最后的旅行"> BGM: <u>最后的旅行</u>
+							<p>坚持本身就是一种幸运，回头看，原来已走过这么长的路</p>
+							<button name="play_music" onclick="playSpecificSong('不散的夏之灯')" aria-label="播放背景音乐：不散的夏之灯"> BGM: <u>不散的夏之灯</u>
 							</button>
 						</div>
 					</li>
@@ -300,10 +338,10 @@
 			</div>
 
 			<button class="left_div" id="left_div" aria-label="上一页">
-				<img class="left_arrow" src="images/icon/arrowleft.png" alt="向左箭头">
+				<img class="left_arrow" src="images/icon/arrowleft.png" alt="向左箭头" loading="lazy">
 			</button>
 			<button class="right_div" id="right_div" aria-label="下一页">
-				<img class="right_arrow" src="images/icon/arrowright.png" alt="向右箭头">
+				<img class="right_arrow" src="images/icon/arrowright.png" alt="向右箭头" loading="lazy">
 			</button>
 		</section>
 
@@ -314,24 +352,25 @@
 					<li class="hobby-card-1">
 						<a href="#">
 							<br>
-							<h2>今天天气真好</h2>
-							<h2>阳光透过窗户洒在书桌上</h2>
+							<h2>今天的天气格外温柔</h2>
+							<h2>阳光悄悄爬进窗，落在桌上，也落在心里</h2>
 						</a>
 					</li>
 					<li class="hobby-card-4">
 						<a href="#">
 							<time datetime="2024-01-17">2026.01.17</time>
-							<h2>学会了一道新菜</h2>
-							<h2>美味的狼牙土豆，让我感到满足</h2>
+							<h2>解锁了新菜谱</h2>
+							<h2>一盘香脆的狼牙土豆，带来了小小的满足感</h2>
 						</a>
 					</li>
 					<li class="hobby-card-2">
 						<a href="#">
-							<h3>周末的慢时光</h3>
-							<img src="images/pic/2.jpg" class="img_max_size" alt="周末时光">
+							<h3>周末的悠闲慢时光</h3>
+							<img src="images/pic/2.jpg" class="img_max_size" alt="周末时光" loading="lazy">
 						</a>
 					</li>
 				</ul>
+				<div class="glass-shine"></div>
 			</div>
 		</section>
 		<footer id="foot" class="foot">
@@ -339,21 +378,21 @@
 			<div class="foot_info_main">
 				<ul>
 					<li class="uname1_items">
-						<a href="https://y.qq.com/n/ryqq/playlist/9154680025" target="_blank" rel="noopener noreferrer" aria-label="歌单">歌单</a>
+						<a href="https://y.qq.com/n/ryqq_v2/playlist/9647986046" target="_blank" rel="noopener noreferrer" aria-label="歌单">歌单</a>
 					</li>
 					<li class="qie_items">
-						<a href="http://whiteg.cn/jump/qq.html" target="_blank" rel="noopener noreferrer" aria-label="企鹅">企鹅</a>
+						<a href="https://user.qzone.qq.com/2607204646/main" target="_blank" rel="noopener noreferrer" aria-label="企鹅">企鹅</a>
 					</li>
 					<li class="pan_items">
-						<a href="#" target="_blank" rel="noopener noreferrer" aria-label="哔哩哔哩"><div style="margin-left:20px">哔哩哔哩</div></a>
+						<a href="https://space.bilibili.com/123742515?spm_id_from=333.1007.0.0" target="_blank" rel="noopener noreferrer" aria-label="哔哩哔哩"><div style="margin-left:20px">哔哩哔哩</div></a>
 					</li>
 					<li class="email_items">
-						<a href="mailto:wj2607204646@163.com" aria-label="邮箱">邮箱</a>
+						<a href="https://github.com/YangLingyu1" target="_blank" rel="noopener noreferrer" aria-label="GitHub主页">GitHub</a>
 					</li>
 				</ul>
 			</div>
 			<div class="foot_power">
-				<h3>©2025 Powered by
+				<h3>©2026 Powered by
 					<p title="Thanks"><a title="全栈大佬" href="https://www.coolecho.net/" target="_blank" rel="noopener noreferrer">凌羽</a>
 					| <a href='https://github.com/YangLingyu1' target="_blank" rel="noopener noreferrer">YangLingyu</a>
 					| <a title="你想干什么？" href="https://www.douyin.com/user/MS4wLjABAAAAbiqJ4830YDV_MVmARLZrQi0TBCaCHH2XiWQgXZjpwJw?from_tab_name=main/" target="_blank" rel="noopener noreferrer">抖音 凌羽</a></p>
@@ -363,490 +402,6 @@
 		</footer>
 	</main>
 	<script defer src="js/about.js"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const bgMusic = document.getElementById('bgMusic');
-			const playBtn = document.getElementById('playBtn');
-			const playIcon = playBtn.querySelector('.play-icon');
-			const prevBtn = document.getElementById('prevBtn');
-			const nextBtn = document.getElementById('nextBtn');
-			const modeBtn = document.getElementById('modeBtn');
-			const modeIcon = modeBtn.querySelector('.mode-icon');
-			const musicTitle = document.getElementById('musicTitle');
-			const listBtn = document.getElementById('listBtn');
-			const closeListBtn = document.getElementById('closeListBtn');
-			const playlistContainer = document.getElementById('playlistContainer');
-			const playlistElement = document.getElementById('playlist');
-			const addSongBtn = document.getElementById('addSongBtn');
-			const fileInput = document.getElementById('fileInput');
-			const modalOverlay = document.getElementById('modalOverlay');
-		 const modalClose = document.getElementById('modalClose');
-			const modalCancel = document.getElementById('modalCancel');
-			const modalConfirm = document.getElementById('modalConfirm');
-			const songNameInput = document.getElementById('songName');
-			const insertPositionSelect = document.getElementById('insertPosition');
-			const musicPlayer = document.getElementById('musicPlayer');
-		const dragHandle = document.getElementById('dragHandle');
-		const volumeSlider = document.getElementById('volumeSlider');
-		const volumeIcon = document.querySelector('.volume-icon');
-		
-		let selectedFile = null;
-		let isDragging = false;
-		let dragOffsetX = 0;
-		let dragOffsetY = 0;
-		let animationFrameId = null;
-		let currentX = 0;
-		let currentY = 0;
-			
-			const musicExtensions = ['.mp3', '.wav', '.ogg', '.m4a', '.flac'];
-			const musicDir = './audio/music/';
-			
-			let playlist = [];
-			let currentIndex = 0;
-			let isPlaying = false;
-			let playMode = 0;
-			const modeIcons = ['🔁', '🔀', '1️⃣'];
-			const modeNames = ['顺序播放', '随机播放', '单曲循环'];
-			
-			function scanMusicFiles() {
-				console.log('加载音乐文件列表...');
-				
-				const musicFiles = [
-					{ title: 'lulala(汉语)', src: './audio/music/lulala(汉语).mp3' },
-					{ title: 'lulala(韩语)', src: './audio/music/lulala(韩语).mp3' },
-					{ title: 'lulala(日语)', src: './audio/music/lulala(日语).mp3' },
-					{ title: '赴每一程未知(哼唱版)', src: './audio/music/赴每一程未知(哼唱版).mp3' },
-					{ title: '赴每一程未知', src: './audio/music/赴每一程未知.mp3' },
-					{ title: 'Shelter(轻柔版)', src: './audio/music/Shelter(轻柔版).mp3' },
-					{ title: '凑热闹BY2', src: './audio/music/BY2 - 凑热闹.mp3' },
-					{ title: '不散的夏之灯', src: './audio/music/不散的夏之灯.mp3' },
-					{ title: '塞壬唱片Misty_Memory', src: './audio/music/塞壬唱片Misty_Memory.mp3' },
-					{ title: 'ElectronicVibes', src: './audio/music/Electronic Vibes.mp3' },	
-					{ title: '你的名字-夢灯籠', src: './audio/music/你的名字-夢灯籠.mp3' },
-					{ title: '希望有羽毛和翅膀', src: './audio/music/希望有羽毛和翅膀.mp3' },
-				];
-				
-				console.log('音乐文件列表加载完成，共', musicFiles.length, '首歌曲');
-				return musicFiles;
-			}
-			
-			function loadSong(index) {
-				if (index >= 0 && index < playlist.length) {
-					currentIndex = index;
-					bgMusic.src = playlist[index].src;
-					musicTitle.textContent = playlist[index].title;
-					updatePlaylistActive();
-				}
-			}
-			
-			function playSong() {
-				bgMusic.volume = volumeSlider.value / 100;
-				bgMusic.play().catch(function(error) {
-					console.log('播放失败:', error);
-				});
-				playIcon.textContent = '❚❚';
-				playBtn.classList.add('playing');
-				isPlaying = true;
-			}
-			
-			function pauseSong() {
-				bgMusic.pause();
-				playIcon.textContent = '▶';
-				playBtn.classList.remove('playing');
-				isPlaying = false;
-			}
-			
-			function getNextIndex() {
-				switch(playMode) {
-					case 0:
-						return (currentIndex + 1) % playlist.length;
-					case 1:
-						let nextIndex;
-						do {
-							nextIndex = Math.floor(Math.random() * playlist.length);
-						} while (nextIndex === currentIndex && playlist.length > 1);
-						return nextIndex;
-					case 2:
-						return currentIndex;
-					default:
-						return (currentIndex + 1) % playlist.length;
-				}
-			}
-			
-			function getPrevIndex() {
-				switch(playMode) {
-					case 0:
-						return (currentIndex - 1 + playlist.length) % playlist.length;
-					case 1:
-						let prevIndex;
-						do {
-							prevIndex = Math.floor(Math.random() * playlist.length);
-						} while (prevIndex === currentIndex && playlist.length > 1);
-						return prevIndex;
-					case 2:
-						return currentIndex;
-					default:
-						return (currentIndex - 1 + playlist.length) % playlist.length;
-				}
-			}
-			
-			function initPlayer() {
-				playlist = scanMusicFiles();
-				renderPlaylist();
-				loadSong(currentIndex);
-				
-				const savedVolume = localStorage.getItem('musicVolume');
-				if (savedVolume !== null) {
-					volumeSlider.value = savedVolume;
-					bgMusic.volume = savedVolume / 100;
-					
-					if (savedVolume == 0) {
-						volumeIcon.textContent = '🔇';
-					} else if (savedVolume < 50) {
-						volumeIcon.textContent = '🔉';
-					} else {
-						volumeIcon.textContent = '🔊';
-					}
-				}
-				
-				console.log('播放器初始化完成');
-			}
-			
-			function renderPlaylist() {
-				playlistElement.innerHTML = '';
-				playlist.forEach(function(song, index) {
-					const li = document.createElement('li');
-					li.className = 'playlist-item' + (index === currentIndex ? ' active' : '');
-					li.innerHTML = `
-						<span class="song-number">${index + 1}</span>
-						<span class="song-name">${song.title}</span>
-						<span class="playing-icon">♪</span>
-						<button class="delete-btn" data-index="${index}" aria-label="删除歌曲">×</button>
-					`;
-					playlistElement.appendChild(li);
-				});
-			}
-			
-			function updatePlaylistActive() {
-				const items = playlistElement.querySelectorAll('.playlist-item');
-				items.forEach(function(item, index) {
-					if (index === currentIndex) {
-						item.classList.add('active');
-					} else {
-						item.classList.remove('active');
-					}
-				});
-			}
-			
-			playlistElement.addEventListener('click', function(e) {
-				const deleteBtn = e.target.closest('.delete-btn');
-				if (deleteBtn) {
-					e.stopPropagation();
-					const index = parseInt(deleteBtn.getAttribute('data-index'));
-					deleteSong(index);
-					return;
-				}
-				
-				const item = e.target.closest('.playlist-item');
-				if (item) {
-					const index = Array.from(playlistElement.children).indexOf(item);
-					if (index !== -1) {
-						loadSong(index);
-						playSong();
-					}
-				}
-			});
-			
-			playlistElement.addEventListener('wheel', function(e) {
-				e.stopPropagation();
-			}, { passive: true });
-			
-			function deleteSong(index) {
-				if (index >= 0 && index < playlist.length) {
-					const song = playlist[index];
-					if (song.isLocal) {
-						URL.revokeObjectURL(song.src);
-					}
-					playlist.splice(index, 1);
-					
-					if (index === currentIndex) {
-						if (playlist.length > 0) {
-							loadSong(index % playlist.length);
-							if (isPlaying) {
-								playSong();
-							}
-						} else {
-							bgMusic.src = '';
-							musicTitle.textContent = '';
-							isPlaying = false;
-							playIcon.textContent = '▶';
-							playBtn.classList.remove('playing');
-						}
-					} else if (index < currentIndex) {
-						currentIndex--;
-					}
-					
-					renderPlaylist();
-					console.log('歌曲已删除:', song.title);
-				}
-			}
-			
-			listBtn.addEventListener('click', function() {
-				const isShowing = playlistContainer.classList.contains('show');
-				playlistContainer.classList.toggle('show');
-				
-				if (!isShowing) {
-					const playerRect = musicPlayer.getBoundingClientRect();
-					const windowWidth = window.innerWidth;
-					
-					if (playerRect.right > windowWidth / 2) {
-						playlistContainer.style.left = 'auto';
-						playlistContainer.style.right = '0';
-					} else {
-						playlistContainer.style.right = 'auto';
-						playlistContainer.style.left = '0';
-					}
-				}
-			});
-			
-			closeListBtn.addEventListener('click', function() {
-				playlistContainer.classList.remove('show');
-			});
-			
-			addSongBtn.addEventListener('click', function() {
-				fileInput.click();
-			});
-			
-			fileInput.addEventListener('change', function(e) {
-				if (e.target.files.length > 0) {
-					selectedFile = e.target.files[0];
-					songNameInput.value = selectedFile.name.replace(/\.[^/.]+$/, '');
-					modalOverlay.classList.add('show');
-				}
-			});
-			
-			volumeSlider.addEventListener('input', function() {
-				const volume = this.value / 100;
-				bgMusic.volume = volume;
-				
-				if (volume === 0) {
-					volumeIcon.textContent = '🔇';
-				} else if (volume < 0.5) {
-					volumeIcon.textContent = '🔉';
-				} else {
-					volumeIcon.textContent = '🔊';
-				}
-			});
-			
-			volumeSlider.addEventListener('change', function() {
-				const volume = this.value / 100;
-				bgMusic.volume = volume;
-				localStorage.setItem('musicVolume', this.value);
-			});
-			
-			modalClose.addEventListener('click', function() {
-				modalOverlay.classList.remove('show');
-				selectedFile = null;
-				fileInput.value = '';
-			});
-			
-			modalCancel.addEventListener('click', function() {
-				modalOverlay.classList.remove('show');
-				selectedFile = null;
-				fileInput.value = '';
-			});
-			
-			modalConfirm.addEventListener('click', function() {
-				if (selectedFile) {
-					const songName = songNameInput.value.trim() || selectedFile.name.replace(/\.[^/.]+$/, '');
-					const position = insertPositionSelect.value;
-					const fileURL = URL.createObjectURL(selectedFile);
-					
-					const newSong = {
-						title: songName,
-						src: fileURL,
-						isLocal: true
-					};
-					
-					let insertIndex = playlist.length;
-					
-					switch(position) {
-						case 'beginning':
-							insertIndex = 0;
-							break;
-						case 'after':
-							insertIndex = currentIndex + 1;
-							break;
-						case 'before':
-							insertIndex = currentIndex;
-							break;
-						case 'end':
-						default:
-							insertIndex = playlist.length;
-							break;
-					}
-					
-					playlist.splice(insertIndex, 0, newSong);
-					
-					if (insertIndex <= currentIndex) {
-						currentIndex++;
-					}
-					
-					renderPlaylist();
-					modalOverlay.classList.remove('show');
-					selectedFile = null;
-					fileInput.value = '';
-					
-					console.log('歌曲已添加:', songName, '位置:', insertIndex);
-				}
-			});
-			
-			modalOverlay.addEventListener('click', function(e) {
-				if (e.target === modalOverlay) {
-					modalOverlay.classList.remove('show');
-					selectedFile = null;
-					fileInput.value = '';
-				}
-			});
-			
-			playBtn.addEventListener('click', function() {
-				if (isPlaying) {
-					pauseSong();
-				} else {
-					playSong();
-				}
-			});
-			
-			prevBtn.addEventListener('click', function() {
-				const prevIndex = getPrevIndex();
-				loadSong(prevIndex);
-				if (isPlaying) {
-					playSong();
-				}
-			});
-			
-			nextBtn.addEventListener('click', function() {
-				const nextIndex = getNextIndex();
-				loadSong(nextIndex);
-				if (isPlaying) {
-					playSong();
-				}
-			});
-			
-			modeBtn.addEventListener('click', function() {
-				playMode = (playMode + 1) % 3;
-				modeIcon.textContent = modeIcons[playMode];
-				console.log('播放模式:', modeNames[playMode]);
-				
-				if (playMode === 2) {
-					bgMusic.loop = true;
-				} else {
-					bgMusic.loop = false;
-				}
-			});
-			
-			bgMusic.addEventListener('ended', function() {
-				if (playMode !== 2) {
-					const nextIndex = getNextIndex();
-					loadSong(nextIndex);
-					playSong();
-				}
-			});
-			
-			dragHandle.addEventListener('mousedown', function(e) {
-				isDragging = true;
-				musicPlayer.classList.add('dragging');
-				const rect = musicPlayer.getBoundingClientRect();
-				dragOffsetX = e.clientX - rect.left;
-				dragOffsetY = e.clientY - rect.top;
-				currentX = rect.left;
-				currentY = rect.top;
-				e.preventDefault();
-			});
-			
-			document.addEventListener('mousemove', function(e) {
-				if (!isDragging) return;
-				
-				if (animationFrameId) {
-					cancelAnimationFrame(animationFrameId);
-				}
-				
-				animationFrameId = requestAnimationFrame(function() {
-					const maxX = window.innerWidth - musicPlayer.offsetWidth;
-					const maxY = window.innerHeight - musicPlayer.offsetHeight;
-					
-					let newX = e.clientX - dragOffsetX;
-					let newY = e.clientY - dragOffsetY;
-					
-					newX = Math.max(0, Math.min(newX, maxX));
-					newY = Math.max(0, Math.min(newY, maxY));
-					
-					musicPlayer.style.left = newX + 'px';
-					musicPlayer.style.top = newY + 'px';
-					musicPlayer.style.right = 'auto';
-					
-					currentX = newX;
-					currentY = newY;
-				});
-			});
-			
-			document.addEventListener('mouseup', function() {
-				if (isDragging) {
-					isDragging = false;
-					musicPlayer.classList.remove('dragging');
-					if (animationFrameId) {
-						cancelAnimationFrame(animationFrameId);
-						animationFrameId = null;
-					}
-					
-					if (playlistContainer.classList.contains('show')) {
-						const playerRect = musicPlayer.getBoundingClientRect();
-						const windowWidth = window.innerWidth;
-						
-						if (playerRect.right > windowWidth / 2) {
-							playlistContainer.style.left = 'auto';
-							playlistContainer.style.right = '0';
-						} else {
-							playlistContainer.style.right = 'auto';
-							playlistContainer.style.left = '0';
-						}
-					}
-				}
-			});
-		
-		let playerInitialized = false;
-		
-		function lazyInitPlayer() {
-			if (!playerInitialized) {
-				initPlayer();
-				playerInitialized = true;
-			}
-		}
-		
-		playBtn.addEventListener('click', function() {
-			lazyInitPlayer();
-		});
-		
-		nextBtn.addEventListener('click', function() {
-			lazyInitPlayer();
-		});
-		
-		prevBtn.addEventListener('click', function() {
-			lazyInitPlayer();
-		});
-		
-		listBtn.addEventListener('click', function() {
-			lazyInitPlayer();
-		});
-		
-		const videos = document.querySelectorAll('.video-background');
-		const activeVideo = document.querySelector('.video-background.active');
-		if (activeVideo) {
-			activeVideo.play().catch(function(error) {
-				console.log('视频背景播放失败:', error);
-			});
-		}
-	});
-	</script>
+	<script defer src="js/music-player.js"></script>
 </body>
 </html>
