@@ -3,6 +3,8 @@ let indexs02 = 0;
 let startTime;
 const flags = {};
 
+console.log('欢迎来到凌羽的个人主页～(≧▽≦) 这是我做的二次元风格的主页，希望你会喜欢');
+
 function getDeviceType() {
     const width = window.innerWidth;
     const height = window.innerHeight;

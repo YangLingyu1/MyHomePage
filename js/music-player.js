@@ -28,6 +28,7 @@
     const insertPositionSelect = document.getElementById('insertPosition');
     const musicPlayer = document.getElementById('musicPlayer');
     const dragHandle = document.getElementById('dragHandle');
+    
     const volumeSlider = document.getElementById('volumeSlider');
     const volumeIcon = document.querySelector('.volume-icon');
 
@@ -276,6 +277,7 @@
             if (index !== -1) {
                 loadSong(index);
                 playSong();
+                playlistContainer.classList.remove('show');
             }
         }
     });
