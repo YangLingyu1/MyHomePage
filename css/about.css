@@ -1,16 +1,16 @@
 /* CSS 变量定义 */
 :root {
-	--primary-color: #667eea;
-	--secondary-color: #764ba2;
-	--text-color: #ffffff;
-	--glass-bg: rgba(255, 255, 255, 0.1);
-	--glass-border: rgba(255, 255, 255, 0.3);
-	--glass-blur: 20px;
-	--transition-duration: 0.3s;
-	--transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
-	--shadow-light: 0 4px 12px rgba(0, 0, 0, 0.15);
-	--shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.12);
-	--shadow-heavy: 0 12px 40px rgba(0, 0, 0, 0.15);
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --text-color: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-blur: 20px;
+    --transition-duration: 0.3s;
+    --transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --shadow-heavy: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 /* reset */
@@ -64,10 +64,13 @@
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 0.5;
     }
+
     50% {
         transform: translate(-50%, -50%) scale(1.2);
         opacity: 0.8;
@@ -79,6 +82,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -148,9 +152,11 @@
     0% {
         transform: rotate(0deg) scale(1);
     }
+
     50% {
         transform: rotate(180deg) scale(1.1);
     }
+
     100% {
         transform: rotate(360deg) scale(1);
     }
@@ -199,9 +205,12 @@
 }
 
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -229,6 +238,7 @@
     0% {
         background-position: 100% 0;
     }
+
     100% {
         background-position: -100% 0;
     }
@@ -271,16 +281,21 @@
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(100vh) scale(0);
         opacity: 0;
     }
+
     10% {
         opacity: 1;
     }
+
     90% {
         opacity: 1;
     }
+
     100% {
         transform: translateY(-100px) scale(1);
         opacity: 0;
@@ -385,17 +400,66 @@
 }
 
 .toggle-icon {
-    font-size: 24px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-    transition: transform var(--transition-duration) var(--transition-easing);
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.toggle-view-btn:hover .toggle-icon {
-    transform: rotate(15deg);
+.toggle-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.toggle-view-btn.active .toggle-icon {
-    transform: rotate(180deg);
+.toggle-icon::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background: transparent;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-view-btn:hover .toggle-icon::before {
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.toggle-view-btn:hover .toggle-icon::after {
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+.toggle-view-btn.active .toggle-icon::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.toggle-view-btn.active .toggle-icon::after {
+    width: 8px;
+    height: 8px;
+    transform: translate(7px, -7px);
 }
 
 .toggle-view-btn.active {
@@ -407,16 +471,22 @@
     background: rgba(255, 255, 255, 0.4);
 }
 
-.toggle-view-btn.active:hover .toggle-icon {
-    transform: rotate(195deg);
+.toggle-view-btn.active:hover .toggle-icon::before {
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-.toggle-view-btn:active .toggle-icon {
-    transform: rotate(180deg) scale(0.9);
+.toggle-view-btn.active:hover .toggle-icon::after {
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
 }
 
-.toggle-view-btn.active:active .toggle-icon {
-    transform: rotate(180deg) scale(0.9);
+.toggle-view-btn:active .toggle-icon::before {
+    transform: scale(0.95);
+}
+
+.toggle-view-btn.active:active .toggle-icon::before {
+    transform: scale(0.95);
 }
 
 body.wallpaper-mode .head,
@@ -429,7 +499,7 @@ body.wallpaper-mode .time-widget {
     pointer-events: none;
     transform: translateY(-20px);
     transition: opacity 0.5s var(--transition-easing),
-                transform 0.5s var(--transition-easing);
+        transform 0.5s var(--transition-easing);
 }
 
 body.wallpaper-mode .video-overlay {
@@ -468,12 +538,12 @@ body.wallpaper-mode .toggle-view-btn:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 30% 30%, 
-        rgba(255, 255, 255, 0.05) 0%, 
-        transparent 50%),
-        radial-gradient(circle at 70% 70%, 
-        rgba(255, 255, 255, 0.03) 0%, 
-        transparent 50%);
+    background: radial-gradient(circle at 30% 30%,
+            rgba(255, 255, 255, 0.05) 0%,
+            transparent 50%),
+        radial-gradient(circle at 70% 70%,
+            rgba(255, 255, 255, 0.03) 0%,
+            transparent 50%);
     pointer-events: none;
 }
 
@@ -490,20 +560,20 @@ body.wallpaper-mode .toggle-view-btn:hover {
     background: var(--glass-bg);
     border-radius: 30px;
     border: 1px solid var(--glass-border);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.1);
     z-index: 1000;
-    transition: background 0.4s var(--transition-easing), 
-                box-shadow 0.4s var(--transition-easing),
-                transform 0.4s var(--transition-easing);
+    transition: background 0.4s var(--transition-easing),
+        box-shadow 0.4s var(--transition-easing),
+        transform 0.4s var(--transition-easing);
 }
 
 .music-player:hover {
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -1px 0 rgba(255, 255, 255, 0.3),
@@ -518,7 +588,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
 .music-player.dragging {
     cursor: move;
     user-select: none;
-    box-shadow: 
+    box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.6),
         inset 0 -1px 0 rgba(255, 255, 255, 0.4),
@@ -548,8 +618,8 @@ body.wallpaper-mode .toggle-view-btn:hover {
     font-size: 14px;
     font-weight: bold;
     opacity: 0.7;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .drag-handle:hover .drag-icon {
@@ -568,9 +638,9 @@ body.wallpaper-mode .toggle-view-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     font-size: 14px;
@@ -580,7 +650,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
 
 .control-btn:hover {
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         0 0 20px rgba(255, 255, 255, 0.1);
@@ -602,17 +672,17 @@ body.wallpaper-mode .toggle-view-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .play-btn:hover {
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         0 0 20px rgba(255, 255, 255, 0.15);
@@ -674,9 +744,9 @@ body.wallpaper-mode .toggle-view-btn:hover {
     border-radius: 2px;
     outline: none;
     cursor: pointer;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
@@ -690,11 +760,11 @@ body.wallpaper-mode .toggle-view-btn:hover {
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .volume-slider::-moz-range-thumb {
@@ -704,16 +774,16 @@ body.wallpaper-mode .toggle-view-btn:hover {
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .volume-slider:hover {
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         0 0 20px rgba(255, 255, 255, 0.1);
@@ -721,7 +791,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
 
 .volume-slider:hover::-webkit-slider-thumb {
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.6),
         0 0 20px rgba(255, 255, 255, 0.15);
@@ -729,7 +799,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
 
 .volume-slider:hover::-moz-range-thumb {
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.6),
         0 0 20px rgba(255, 255, 255, 0.15);
@@ -755,7 +825,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 15px;
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
@@ -764,9 +834,9 @@ body.wallpaper-mode .toggle-view-btn:hover {
     visibility: hidden;
     opacity: 0;
     z-index: 1001;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateY(-10px);
 }
 
@@ -783,9 +853,9 @@ body.wallpaper-mode .toggle-view-btn:hover {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -826,17 +896,17 @@ body.wallpaper-mode .toggle-view-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .add-btn:hover {
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         0 0 20px rgba(255, 255, 255, 0.1);
@@ -855,17 +925,17 @@ body.wallpaper-mode .toggle-view-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .close-btn:hover {
     background: rgba(255, 255, 255, 0.15);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         0 0 20px rgba(255, 255, 255, 0.1);
@@ -962,9 +1032,9 @@ body.wallpaper-mode .toggle-view-btn:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.3s ease, 
-                transform 0.3s ease,
-                color 0.3s ease;
+    transition: opacity 0.3s ease,
+        transform 0.3s ease,
+        color 0.3s ease;
     opacity: 0;
 }
 
@@ -975,6 +1045,153 @@ body.wallpaper-mode .toggle-view-btn:hover {
 .playlist-item .delete-btn:hover {
     color: #ff4757;
     transform: scale(1.2);
+}
+
+/* 播放模式图标 - 透明玻璃质感 */
+.mode-icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn .mode-icon::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn .mode-icon::after {
+    content: '1';
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 顺序播放图标 */
+.control-btn .mode-icon.mode-sequence::before {
+    content: '';
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn .mode-icon.mode-sequence::after {
+    content: '▶';
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 随机播放图标 */
+.control-btn .mode-icon.mode-random::before {
+    content: '';
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn .mode-icon.mode-random::after {
+    content: '♪';
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 单曲循环图标 */
+.control-btn .mode-icon.mode-single::before {
+    content: '';
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-btn .mode-icon.mode-single::after {
+    content: '1';
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 歌单列表图标 - 三根杠设计 */
+.list-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* 三根杠的基础样式 */
+.list-icon::before,
+.list-icon::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* 中间的杠 */
+.list-icon {
+    width: 14px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* 位置调整 */
+.list-icon::before {
+    top: -6px;
+}
+
+.list-icon::after {
+    bottom: -6px;
+}
+
+/* 悬停效果 */
+.control-btn:hover .list-icon::before,
+.control-btn:hover .list-icon::after {
+    transform: scaleX(1.1);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.control-btn:hover .list-icon {
+    transform: scaleX(1.1);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* 点击效果 */
+.control-btn:active .list-icon::before,
+.control-btn:active .list-icon::after {
+    transform: scaleX(0.9);
+}
+
+.control-btn:active .list-icon {
+    transform: scaleX(0.9);
 }
 
 .modal-overlay {
@@ -1001,6 +1218,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -1014,7 +1232,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
     max-width: 90%;
     max-height: 85vh;
     overflow-y: auto;
-    box-shadow: 
+    box-shadow:
         0 10px 40px rgba(0, 0, 0, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
@@ -1031,9 +1249,9 @@ body.wallpaper-mode .toggle-view-btn:hover {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -1049,6 +1267,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1075,8 +1294,8 @@ body.wallpaper-mode .toggle-view-btn:hover {
     font-size: 24px;
     color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
-    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 0;
     width: 30px;
     height: 30px;
@@ -1113,9 +1332,9 @@ body.wallpaper-mode .toggle-view-btn:hover {
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 8px;
     font-size: 14px;
-    transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.05);
     color: rgba(255, 255, 255, 0.9);
@@ -1125,7 +1344,7 @@ body.wallpaper-mode .toggle-view-btn:hover {
 .form-group select:focus {
     outline: none;
     border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 
+    box-shadow:
         0 0 0 3px rgba(255, 255, 255, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.08);
@@ -1146,23 +1365,23 @@ body.wallpaper-mode .toggle-view-btn:hover {
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-cancel {
     background: rgba(255, 255, 255, 0.08);
     color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .btn-cancel:hover {
     background: rgba(255, 255, 255, 0.12);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         0 0 20px rgba(255, 255, 255, 0.1);
@@ -1172,14 +1391,14 @@ body.wallpaper-mode .toggle-view-btn:hover {
     background: rgba(255, 255, 255, 0.12);
     color: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .btn-confirm:hover {
     background: rgba(255, 255, 255, 0.18);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         0 0 20px rgba(255, 255, 255, 0.15);
@@ -1266,7 +1485,7 @@ body {
     height: 60px;
     opacity: 0.6;
     transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity, transform;
 }
 
@@ -1407,7 +1626,7 @@ body {
     width: 100%;
     height: 100%;
     transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity, transform;
     /*
     -webkit-transition: all 1s;
@@ -1426,16 +1645,15 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.08),
         inset 0 2px 4px rgba(255, 255, 255, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                left 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                top 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width, left, top, background, box-shadow, transform;
     transform-style: preserve-3d;
     perspective: 1000px;
@@ -1448,9 +1666,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        transparent 30%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 30%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1458,7 +1676,7 @@ body {
 
 .box01_content:hover {
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -1px 0 rgba(255, 255, 255, 0.3),
@@ -1478,12 +1696,12 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 30% 30%, 
-        rgba(255, 255, 255, 0.03) 0%, 
-        transparent 50%),
-        radial-gradient(circle at 70% 70%, 
-        rgba(255, 255, 255, 0.02) 0%, 
-        transparent 50%);
+    background: radial-gradient(circle at 30% 30%,
+            rgba(255, 255, 255, 0.03) 0%,
+            transparent 50%),
+        radial-gradient(circle at 70% 70%,
+            rgba(255, 255, 255, 0.02) 0%,
+            transparent 50%);
     pointer-events: none;
     animation: breathe 4s ease-in-out infinite;
     opacity: 0.5;
@@ -1495,9 +1713,9 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-        rgba(255, 255, 255, 0.08) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1516,14 +1734,14 @@ body {
     align-items: center;
     gap: 8px;
     padding: 10px 15px;
-    background: linear-gradient(135deg, 
-        rgba(255, 182, 193, 0.2) 0%, 
-        rgba(173, 216, 230, 0.2) 30%,
-        rgba(221, 160, 221, 0.2) 60%,
-        rgba(255, 218, 185, 0.2) 100%);
+    background: linear-gradient(135deg,
+            rgba(255, 182, 193, 0.2) 0%,
+            rgba(173, 216, 230, 0.2) 30%,
+            rgba(221, 160, 221, 0.2) 60%,
+            rgba(255, 218, 185, 0.2) 100%);
     border-radius: 30px;
     border: 2px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(255, 182, 193, 0.4),
         0 0 0 1px rgba(255, 255, 255, 0.15),
         inset 0 2px 4px rgba(255, 255, 255, 0.3),
@@ -1540,7 +1758,7 @@ body {
     left: 20px;
     z-index: 1001;
     transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .time-widget-wrapper.hidden {
@@ -1554,15 +1772,20 @@ body {
 }
 
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px) rotate(0deg);
     }
+
     25% {
         transform: translateY(-8px) rotate(0.5deg);
     }
+
     50% {
         transform: translateY(-12px) rotate(0deg);
     }
+
     75% {
         transform: translateY(-8px) rotate(-0.5deg);
     }
@@ -1575,25 +1798,28 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: 
-        radial-gradient(circle at 20% 20%, 
-            rgba(255, 105, 180, 0.15) 0%, 
+    background:
+        radial-gradient(circle at 20% 20%,
+            rgba(255, 105, 180, 0.15) 0%,
             transparent 30%),
-        radial-gradient(circle at 80% 80%, 
-            rgba(135, 206, 235, 0.15) 0%, 
+        radial-gradient(circle at 80% 80%,
+            rgba(135, 206, 235, 0.15) 0%,
             transparent 30%),
-        radial-gradient(circle at 50% 50%, 
-            rgba(255, 255, 255, 0.1) 0%, 
+        radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.1) 0%,
             transparent 40%);
     pointer-events: none;
     animation: sparkle 4s ease-in-out infinite;
 }
 
 @keyframes sparkle {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.4;
         transform: scale(1);
     }
+
     50% {
         opacity: 1;
         transform: scale(1.1);
@@ -1607,10 +1833,10 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, 
-        transparent 30%, 
-        rgba(255, 255, 255, 0.15) 50%, 
-        transparent 70%);
+    background: linear-gradient(45deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.15) 50%,
+            transparent 70%);
     background-size: 300% 300%;
     pointer-events: none;
     animation: shine 4s ease-in-out infinite;
@@ -1621,9 +1847,11 @@ body {
         background-position: 200% 200%;
         opacity: 0;
     }
+
     50% {
         opacity: 1;
     }
+
     100% {
         background-position: -200% -200%;
         opacity: 0;
@@ -1631,7 +1859,7 @@ body {
 }
 
 .time-widget:hover {
-    box-shadow: 
+    box-shadow:
         0 16px 48px rgba(255, 182, 193, 0.5),
         0 0 0 1px rgba(255, 255, 255, 0.25),
         inset 0 2px 4px rgba(255, 255, 255, 0.4),
@@ -1644,7 +1872,7 @@ body {
 
 .time-widget.dragging {
     animation: none;
-    box-shadow: 
+    box-shadow:
         0 20px 60px rgba(255, 182, 193, 0.6),
         0 0 0 1px rgba(255, 255, 255, 0.3),
         inset 0 2px 4px rgba(255, 255, 255, 0.5),
@@ -1675,8 +1903,8 @@ body {
     font-size: 14px;
     font-weight: bold;
     opacity: 0.7;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
@@ -1702,12 +1930,12 @@ body {
 .time-widget-text {
     font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(135deg, 
-        #FF69B4 0%, 
-        #FFB6C1 25%, 
-        #ADD8E6 50%, 
-        #87CEEB 75%, 
-        #DDA0DD 100%);
+    background: linear-gradient(135deg,
+            #FF69B4 0%,
+            #FFB6C1 25%,
+            #ADD8E6 50%,
+            #87CEEB 75%,
+            #DDA0DD 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1720,21 +1948,24 @@ body {
 }
 
 @keyframes gradient-shift {
-    0%, 100% {
+
+    0%,
+    100% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
 }
 
 .time-widget:hover .time-widget-text {
-    background: linear-gradient(135deg, 
-        #FF1493 0%, 
-        #FF69B4 25%, 
-        #87CEEB 50%, 
-        #00CED1 75%, 
-        #BA55D3 100%);
+    background: linear-gradient(135deg,
+            #FF1493 0%,
+            #FF69B4 25%,
+            #87CEEB 50%,
+            #00CED1 75%,
+            #BA55D3 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1762,8 +1993,8 @@ body {
     margin: 0 auto;
     height: 400px;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width, height, margin;
 }
 
@@ -1775,8 +2006,8 @@ body {
     position: relative;
     text-align: center;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width, height, transform;
 }
 
@@ -1809,8 +2040,8 @@ body {
     height: 200px;
     margin-top: 7px;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width, height, margin-top;
 }
 
@@ -1821,13 +2052,13 @@ body {
     border: 3px solid rgba(255, 192, 203, 0.85);
     margin: 97px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 30px rgba(255, 192, 203, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.15);
-    transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transform: perspective(400px) rotateY(0deg);
     position: absolute;
     display: flex;
@@ -1861,10 +2092,10 @@ body {
     opacity: 0.7;
     filter: drop-shadow(0 0 12px rgba(91, 155, 200, 0.8)) drop-shadow(0 0 30px rgba(91, 155, 200, 0.4));
     transition: margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity, margin, filter, width, height;
 }
 
@@ -1876,9 +2107,9 @@ body {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(91, 155, 200, 0.3) 0%, 
-        transparent 60%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(91, 155, 200, 0.3) 0%,
+            transparent 60%);
     pointer-events: none;
     animation: glow 2s ease-in-out infinite;
 }
@@ -1893,10 +2124,10 @@ body {
     opacity: 0.7;
     filter: drop-shadow(0 0 12px rgba(49, 101, 149, 0.8)) drop-shadow(0 0 30px rgba(49, 101, 149, 0.4));
     transition: margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity, margin, filter, width, height;
 }
 
@@ -1908,9 +2139,9 @@ body {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(49, 101, 149, 0.3) 0%, 
-        transparent 60%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(49, 101, 149, 0.3) 0%,
+            transparent 60%);
     pointer-events: none;
     animation: glow 1.5s ease-in-out infinite;
 }
@@ -1925,10 +2156,10 @@ body {
     opacity: 0.7;
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));
     transition: margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, opacity, margin, filter, width, height;
 }
 
@@ -1940,9 +2171,9 @@ body {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.3) 0%, 
-        transparent 60%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.3) 0%,
+            transparent 60%);
     pointer-events: none;
     animation: glow 1.2s ease-in-out infinite;
 }
@@ -1952,12 +2183,12 @@ body {
     border-radius: 25px;
     width: 120px;
     height: 50px;
-    transition: background 2s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 2s cubic-bezier(0.4, 0, 0.2, 1),
-                margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 2s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 2s cubic-bezier(0.4, 0, 0.2, 1),
+        margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     animation-duration: 1.8s;
     animation-timing-function: ease;
     animation-iteration-count: 1;
@@ -1984,9 +2215,9 @@ body {
 }
 
 #item_1:hover::before {
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(66, 201, 163, 0.6) 0%, 
-        transparent 50%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(66, 201, 163, 0.6) 0%,
+            transparent 50%);
 }
 
 #item_2:hover {
@@ -1994,9 +2225,9 @@ body {
 }
 
 #item_2:hover::before {
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(109, 179, 217, 0.6) 0%, 
-        transparent 50%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(109, 179, 217, 0.6) 0%,
+            transparent 50%);
 }
 
 #item_3:hover {
@@ -2004,9 +2235,9 @@ body {
 }
 
 #item_3:hover::before {
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(98, 116, 127, 0.6) 0%, 
-        transparent 50%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(98, 116, 127, 0.6) 0%,
+            transparent 50%);
 }
 
 .cycle_a_b {
@@ -2044,9 +2275,9 @@ body {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(66, 201, 163, 0.4) 0%, 
-        transparent 60%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(66, 201, 163, 0.4) 0%,
+            transparent 60%);
     pointer-events: none;
     animation: glow 1.8s ease-in-out infinite;
 }
@@ -2102,9 +2333,9 @@ body {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(109, 179, 217, 0.4) 0%, 
-        transparent 60%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(109, 179, 217, 0.4) 0%,
+            transparent 60%);
     pointer-events: none;
     animation: glow 1.8s ease-in-out infinite;
 }
@@ -2132,56 +2363,56 @@ body {
 }
 
 #item_3::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(98, 116, 127, 0.4) 0%, 
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%,
+            rgba(98, 116, 127, 0.4) 0%,
             transparent 60%);
-        pointer-events: none;
-        animation: glow 1.8s ease-in-out infinite;
-    }
+    pointer-events: none;
+    animation: glow 1.8s ease-in-out infinite;
+}
 
-    .cycle_a:hover {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
-        border-color: rgba(255, 255, 255, 0.5);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        opacity: 1;
-    }
+.cycle_a:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
 
-    #item_1:hover {
-        box-shadow: 0 0 20px rgba(66, 201, 163, 0.8), 0 0 40px rgba(66, 201, 163, 0.5);
-    }
+#item_1:hover {
+    box-shadow: 0 0 20px rgba(66, 201, 163, 0.8), 0 0 40px rgba(66, 201, 163, 0.5);
+}
 
-    #item_1:hover::before {
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(66, 201, 163, 0.6) 0%, 
+#item_1:hover::before {
+    background: radial-gradient(circle at 50% 50%,
+            rgba(66, 201, 163, 0.6) 0%,
             transparent 50%);
-    }
+}
 
-    #item_2:hover {
-        box-shadow: 0 0 20px rgba(109, 179, 217, 0.8), 0 0 40px rgba(109, 179, 217, 0.5);
-    }
+#item_2:hover {
+    box-shadow: 0 0 20px rgba(109, 179, 217, 0.8), 0 0 40px rgba(109, 179, 217, 0.5);
+}
 
-    #item_2:hover::before {
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(109, 179, 217, 0.6) 0%, 
+#item_2:hover::before {
+    background: radial-gradient(circle at 50% 50%,
+            rgba(109, 179, 217, 0.6) 0%,
             transparent 50%);
-    }
+}
 
-    #item_3:hover {
-        box-shadow: 0 0 20px rgba(98, 116, 127, 0.8), 0 0 40px rgba(98, 116, 127, 0.5);
-    }
+#item_3:hover {
+    box-shadow: 0 0 20px rgba(98, 116, 127, 0.8), 0 0 40px rgba(98, 116, 127, 0.5);
+}
 
-    #item_3:hover::before {
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(98, 116, 127, 0.6) 0%, 
+#item_3:hover::before {
+    background: radial-gradient(circle at 50% 50%,
+            rgba(98, 116, 127, 0.6) 0%,
             transparent 50%);
-    }
+}
 
 #item_3 .cycle_icon_3 {
     background: url('../images/icon/douyin.png');
@@ -2207,9 +2438,9 @@ body {
     margin-top: 10px;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
     letter-spacing: 2px;
-    transition: text-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: text-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: text-shadow, transform, font-size;
 }
 
@@ -2223,10 +2454,10 @@ body {
     margin-top: 10px;
     margin-bottom: 20px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: text-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: text-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     height: 50px;
     line-height: 50px;
     display: flex;
@@ -2240,6 +2471,7 @@ body {
     text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-3px);
 }
+
 #box01_text {
     width: 100%;
     overflow: hidden;
@@ -2250,10 +2482,10 @@ body {
     font-size: 20px;
     font-weight: 300;
     line-height: 38px;
-    transition: font-size 0.3s ease, 
-                text-shadow 0.3s ease,
-                transform 0.3s ease,
-                opacity 0.3s ease;
+    transition: font-size 0.3s ease,
+        text-shadow 0.3s ease,
+        transform 0.3s ease,
+        opacity 0.3s ease;
     opacity: 0;
     cursor: pointer;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -2275,7 +2507,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity, transform;
 }
 
@@ -2286,9 +2518,9 @@ body {
     border-radius: 50%;
     margin-bottom: 14px;
     background-color: transparent;
-    transition: border-color 0.3s ease, 
-                transform 0.3s ease,
-                background-color 0.3s ease;
+    transition: border-color 0.3s ease,
+        transform 0.3s ease,
+        background-color 0.3s ease;
     cursor: pointer;
     will-change: border-color, transform, background-color;
 }
@@ -2302,7 +2534,7 @@ body {
     margin-bottom: 0;
 }
 
-.float_btn > .btn_on {
+.float_btn>.btn_on {
     background: rgba(255, 255, 255, 0.9);
     border-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -2321,9 +2553,9 @@ body {
     width: 30px;
     height: 30px;
     opacity: 0.8;
-    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.3s ease,
-                bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s ease,
+        bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .arrow_img:hover {
@@ -2347,15 +2579,15 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.08),
         inset 0 2px 4px rgba(255, 255, 255, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                left 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                top 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width, left, top, background, box-shadow, transform;
     transform-style: preserve-3d;
     perspective: 1000px;
@@ -2368,9 +2600,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        transparent 30%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 30%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -2378,7 +2610,7 @@ body {
 
 .box02_content:hover {
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -1px 0 rgba(255, 255, 255, 0.3),
@@ -2400,7 +2632,7 @@ body {
     cursor: pointer;
     text-shadow: -1px -1px 1px #B9A36C;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                min-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width, min-width;
 }
 
@@ -2413,7 +2645,7 @@ body {
     position: relative;
     right: -100%;
     transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: right, font-size;
 }
 
@@ -2422,8 +2654,8 @@ body {
     height: 0;
     border-bottom: 1px dashed #ffffff;
     right: -100%;
-    transition: width 0.5s ease, 
-                right 0.5s ease;
+    transition: width 0.5s ease,
+        right 0.5s ease;
     position: relative;
     right: -100%;
 }
@@ -2437,7 +2669,7 @@ body {
     position: relative;
     right: -100%;
     transition: right 1s ease,
-                font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: right, font-size;
 }
 
@@ -2455,16 +2687,16 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.08),
         inset 0 2px 4px rgba(255, 255, 255, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                right 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                top 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        right 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: width, right, top, height, background, box-shadow, transform;
     transform-style: preserve-3d;
     perspective: 1000px;
@@ -2477,9 +2709,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        transparent 30%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 30%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -2487,7 +2719,7 @@ body {
 
 .box03_content:hover {
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -1px 0 rgba(255, 255, 255, 0.3),
@@ -2556,18 +2788,18 @@ body {
     border-radius: 50%;
     margin-top: -8px;
     margin-left: -8px;
-    box-shadow: 
+    box-shadow:
         0 0 15px rgba(255, 255, 255, 0.3),
         inset 0 2px 4px rgba(255, 255, 255, 0.4);
-    transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .timeUl li:hover::before {
     transform: scale(1.3);
     border-color: rgba(255, 255, 255, 0.8);
     background: rgba(255, 255, 255, 0.3);
-    box-shadow: 
+    box-shadow:
         0 0 20px rgba(255, 255, 255, 0.5),
         inset 0 2px 4px rgba(255, 255, 255, 0.5);
 }
@@ -2578,16 +2810,16 @@ body {
     background: rgba(255, 255, 255, 0.05);
     text-align: center;
     color: #ffffff;
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 15px;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     will-change: transform, box-shadow;
 }
@@ -2599,9 +2831,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.1) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -2610,7 +2842,7 @@ body {
 
 .timeUl li:nth-child(odd):hover div {
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -1px 0 rgba(255, 255, 255, 0.3),
@@ -2621,7 +2853,7 @@ body {
 
 .timeUl li:nth-child(even):hover div {
     background: rgba(255, 255, 255, 0.08);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         inset 0 -1px 0 rgba(255, 255, 255, 0.3),
@@ -2721,9 +2953,9 @@ body {
     width: 30px;
     height: 40px;
     opacity: 0.7;
-    transition: opacity 0.3s ease, 
-                transform 0.3s ease, 
-                box-shadow 0.3s ease;
+    transition: opacity 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -2740,7 +2972,7 @@ body {
     font-weight: 300;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transition: font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                line-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        line-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .timeUl li div p {
@@ -2749,7 +2981,7 @@ body {
     font-weight: 300;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     transition: font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                line-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        line-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .timeUl li div button {
@@ -2760,9 +2992,9 @@ body {
     color: #ffffff;
     font-size: 16px;
     cursor: pointer;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     margin-top: 10px;
@@ -2770,7 +3002,7 @@ body {
 
 .timeUl li div button:hover {
     background: rgba(255, 255, 255, 0.12);
-    box-shadow: 
+    box-shadow:
         0 4px 12px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         0 0 20px rgba(255, 255, 255, 0.1);
@@ -2795,15 +3027,15 @@ body {
     background: rgba(135, 206, 250, 0.03);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(135, 206, 250, 0.15),
         inset 0 2px 4px rgba(255, 255, 255, 0.15),
         0 0 60px rgba(135, 206, 250, 0.12);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                left 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     will-change: width, left, height, background, box-shadow, transform;
     transform-style: preserve-3d;
@@ -2817,9 +3049,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.15) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.15) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -2828,7 +3060,7 @@ body {
 
 .box04_content:hover {
     background: rgba(135, 206, 250, 0.05);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(135, 206, 250, 0.15),
         inset 0 2px 4px rgba(255, 255, 255, 0.15),
         0 0 60px rgba(135, 206, 250, 0.1);
@@ -2848,7 +3080,7 @@ body {
     margin-bottom: 30px;
     letter-spacing: 2px;
     transition: font-size 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bq {
@@ -2874,14 +3106,14 @@ body {
     padding: 8px;
     border-radius: 8px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 
+    box-shadow:
         0 2px 12px rgba(135, 206, 250, 0.1),
         inset 0 1px 2px rgba(255, 255, 255, 0.12),
         0 0 30px rgba(135, 206, 250, 0.06);
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     cursor: pointer;
     height: 100%;
@@ -2896,9 +3128,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(255, 255, 255, 0.2) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(255, 255, 255, 0.2) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -2913,9 +3145,9 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.2) 0%, 
-        transparent 60%);
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.2) 0%,
+            transparent 60%);
     border-radius: 12px;
     pointer-events: none;
     z-index: 2;
@@ -2923,7 +3155,7 @@ body {
 
 .bq li a:hover {
     background: rgba(135, 206, 250, 0.08);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(135, 206, 250, 0.2),
         inset 0 4px 8px rgba(255, 255, 255, 0.22),
         0 0 80px rgba(135, 206, 250, 0.12);
@@ -2936,42 +3168,42 @@ body {
 }
 
 .hobby-card-1 a {
-    background: linear-gradient(135deg, 
-        rgba(147, 112, 219, 0.08) 0%, 
-        rgba(147, 112, 219, 0.05) 50%,
-        rgba(147, 112, 219, 0.03) 100%);
+    background: linear-gradient(135deg,
+            rgba(147, 112, 219, 0.08) 0%,
+            rgba(147, 112, 219, 0.05) 50%,
+            rgba(147, 112, 219, 0.03) 100%);
     backdrop-filter: blur(4px) brightness(1.03);
     -webkit-backdrop-filter: blur(4px) brightness(1.03);
     border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 
+    box-shadow:
         0 3px 12px rgba(147, 112, 219, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.12),
         inset 0 1px 2px rgba(255, 255, 255, 0.15),
         0 0 25px rgba(147, 112, 219, 0.06);
-    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-                backdrop-filter 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        backdrop-filter 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, box-shadow;
 }
 
 .hobby-card-1 a::before {
-    background: radial-gradient(ellipse at 30% 20%, 
-        rgba(255, 255, 255, 0.35) 0%, 
-        rgba(255, 255, 255, 0.12) 30%,
-        transparent 60%);
+    background: radial-gradient(ellipse at 30% 20%,
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.12) 30%,
+            transparent 60%);
 }
 
 .hobby-card-1 a:hover {
-    background: linear-gradient(135deg, 
-        rgba(147, 112, 219, 0.1) 0%, 
-        rgba(147, 112, 219, 0.06) 50%,
-        rgba(147, 112, 219, 0.04) 100%);
+    background: linear-gradient(135deg,
+            rgba(147, 112, 219, 0.1) 0%,
+            rgba(147, 112, 219, 0.06) 50%,
+            rgba(147, 112, 219, 0.04) 100%);
     backdrop-filter: blur(5px) brightness(1.04);
     -webkit-backdrop-filter: blur(5px) brightness(1.04);
     border-color: rgba(255, 255, 255, 0.22);
-    box-shadow: 
+    box-shadow:
         0 4px 16px rgba(147, 112, 219, 0.12),
         0 0 0 1px rgba(255, 255, 255, 0.15),
         inset 0 1px 3px rgba(255, 255, 255, 0.18),
@@ -2987,10 +3219,10 @@ body {
     backdrop-filter: blur(3px) brightness(1.1);
     -webkit-backdrop-filter: blur(3px) brightness(1.1);
     box-shadow: 0 4px 12px rgba(147, 112, 219, 0.2);
-    transition: opacity 0.3s ease, 
-                transform 0.3s ease,
-                backdrop-filter 0.3s ease,
-                box-shadow 0.3s ease;
+    transition: opacity 0.3s ease,
+        transform 0.3s ease,
+        backdrop-filter 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .hobby-card-1 a:hover img {
@@ -3002,42 +3234,42 @@ body {
 }
 
 .hobby-card-2 a {
-    background: linear-gradient(135deg, 
-        rgba(236, 72, 153, 0.08) 0%, 
-        rgba(236, 72, 153, 0.05) 50%,
-        rgba(236, 72, 153, 0.03) 100%);
+    background: linear-gradient(135deg,
+            rgba(236, 72, 153, 0.08) 0%,
+            rgba(236, 72, 153, 0.05) 50%,
+            rgba(236, 72, 153, 0.03) 100%);
     backdrop-filter: blur(4px) brightness(1.03);
     -webkit-backdrop-filter: blur(4px) brightness(1.03);
     border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 
+    box-shadow:
         0 3px 12px rgba(236, 72, 153, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.12),
         inset 0 1px 2px rgba(255, 255, 255, 0.15),
         0 0 25px rgba(236, 72, 153, 0.06);
-    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-                backdrop-filter 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        backdrop-filter 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, box-shadow;
 }
 
 .hobby-card-2 a::before {
-    background: radial-gradient(ellipse at 30% 20%, 
-        rgba(255, 255, 255, 0.35) 0%, 
-        rgba(255, 255, 255, 0.12) 30%,
-        transparent 60%);
+    background: radial-gradient(ellipse at 30% 20%,
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.12) 30%,
+            transparent 60%);
 }
 
 .hobby-card-2 a:hover {
-    background: linear-gradient(135deg, 
-        rgba(236, 72, 153, 0.1) 0%, 
-        rgba(236, 72, 153, 0.06) 50%,
-        rgba(236, 72, 153, 0.04) 100%);
+    background: linear-gradient(135deg,
+            rgba(236, 72, 153, 0.1) 0%,
+            rgba(236, 72, 153, 0.06) 50%,
+            rgba(236, 72, 153, 0.04) 100%);
     backdrop-filter: blur(5px) brightness(1.04);
     -webkit-backdrop-filter: blur(5px) brightness(1.04);
     border-color: rgba(255, 255, 255, 0.22);
-    box-shadow: 
+    box-shadow:
         0 4px 16px rgba(236, 72, 153, 0.12),
         0 0 0 1px rgba(255, 255, 255, 0.15),
         inset 0 1px 3px rgba(255, 255, 255, 0.18),
@@ -3053,10 +3285,10 @@ body {
     backdrop-filter: blur(3px) brightness(1.1);
     -webkit-backdrop-filter: blur(3px) brightness(1.1);
     box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2);
-    transition: opacity 0.3s ease, 
-                transform 0.3s ease,
-                backdrop-filter 0.3s ease,
-                box-shadow 0.3s ease;
+    transition: opacity 0.3s ease,
+        transform 0.3s ease,
+        backdrop-filter 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .hobby-card-2 a:hover img {
@@ -3068,42 +3300,42 @@ body {
 }
 
 .hobby-card-3 a {
-    background: linear-gradient(135deg, 
-        rgba(255, 159, 67, 0.12) 0%, 
-        rgba(255, 159, 67, 0.08) 50%,
-        rgba(255, 159, 67, 0.06) 100%);
+    background: linear-gradient(135deg,
+            rgba(255, 159, 67, 0.12) 0%,
+            rgba(255, 159, 67, 0.08) 50%,
+            rgba(255, 159, 67, 0.06) 100%);
     backdrop-filter: blur(8px) brightness(1.05);
     -webkit-backdrop-filter: blur(8px) brightness(1.05);
     border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(255, 159, 67, 0.2),
         0 0 0 2px rgba(255, 255, 255, 0.2),
         inset 0 2px 4px rgba(255, 255, 255, 0.22),
         0 0 60px rgba(255, 159, 67, 0.15);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, box-shadow;
 }
 
 .hobby-card-3 a::before {
-    background: radial-gradient(ellipse at 30% 20%, 
-        rgba(255, 255, 255, 0.35) 0%, 
-        rgba(255, 255, 255, 0.12) 30%,
-        transparent 60%);
+    background: radial-gradient(ellipse at 30% 20%,
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.12) 30%,
+            transparent 60%);
 }
 
 .hobby-card-3 a:hover {
-    background: linear-gradient(135deg, 
-        rgba(255, 159, 67, 0.14) 0%, 
-        rgba(255, 159, 67, 0.1) 50%,
-        rgba(255, 159, 67, 0.08) 100%);
+    background: linear-gradient(135deg,
+            rgba(255, 159, 67, 0.14) 0%,
+            rgba(255, 159, 67, 0.1) 50%,
+            rgba(255, 159, 67, 0.08) 100%);
     backdrop-filter: blur(9px) brightness(1.06);
     -webkit-backdrop-filter: blur(9px) brightness(1.06);
     border-color: rgba(255, 255, 255, 0.32);
-    box-shadow: 
+    box-shadow:
         0 10px 40px rgba(255, 159, 67, 0.25),
         0 0 0 2px rgba(255, 255, 255, 0.28),
         inset 0 3px 6px rgba(255, 255, 255, 0.28),
@@ -3119,10 +3351,10 @@ body {
     backdrop-filter: blur(3px) brightness(1.1);
     -webkit-backdrop-filter: blur(3px) brightness(1.1);
     box-shadow: 0 4px 12px rgba(255, 159, 67, 0.2);
-    transition: opacity 0.3s ease, 
-                transform 0.3s ease,
-                backdrop-filter 0.3s ease,
-                box-shadow 0.3s ease;
+    transition: opacity 0.3s ease,
+        transform 0.3s ease,
+        backdrop-filter 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .hobby-card-3 a:hover img {
@@ -3134,42 +3366,42 @@ body {
 }
 
 .hobby-card-4 a {
-    background: linear-gradient(135deg, 
-        rgba(52, 211, 153, 0.12) 0%, 
-        rgba(52, 211, 153, 0.08) 50%,
-        rgba(52, 211, 153, 0.06) 100%);
+    background: linear-gradient(135deg,
+            rgba(52, 211, 153, 0.12) 0%,
+            rgba(52, 211, 153, 0.08) 50%,
+            rgba(52, 211, 153, 0.06) 100%);
     backdrop-filter: blur(8px) brightness(1.05);
     -webkit-backdrop-filter: blur(8px) brightness(1.05);
     border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(52, 211, 153, 0.2),
         0 0 0 2px rgba(255, 255, 255, 0.2),
         inset 0 2px 4px rgba(255, 255, 255, 0.22),
         0 0 60px rgba(52, 211, 153, 0.15);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform, box-shadow;
 }
 
 .hobby-card-4 a::before {
-    background: radial-gradient(ellipse at 30% 20%, 
-        rgba(255, 255, 255, 0.35) 0%, 
-        rgba(255, 255, 255, 0.12) 30%,
-        transparent 60%);
+    background: radial-gradient(ellipse at 30% 20%,
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.12) 30%,
+            transparent 60%);
 }
 
 .hobby-card-4 a:hover {
-    background: linear-gradient(135deg, 
-        rgba(52, 211, 153, 0.14) 0%, 
-        rgba(52, 211, 153, 0.1) 50%,
-        rgba(52, 211, 153, 0.08) 100%);
+    background: linear-gradient(135deg,
+            rgba(52, 211, 153, 0.14) 0%,
+            rgba(52, 211, 153, 0.1) 50%,
+            rgba(52, 211, 153, 0.08) 100%);
     backdrop-filter: blur(9px) brightness(1.06);
     -webkit-backdrop-filter: blur(9px) brightness(1.06);
     border-color: rgba(255, 255, 255, 0.32);
-    box-shadow: 
+    box-shadow:
         0 10px 40px rgba(52, 211, 153, 0.25),
         0 0 0 2px rgba(255, 255, 255, 0.28),
         inset 0 3px 6px rgba(255, 255, 255, 0.28),
@@ -3185,10 +3417,10 @@ body {
     backdrop-filter: blur(3px) brightness(1.1);
     -webkit-backdrop-filter: blur(3px) brightness(1.1);
     box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
-    transition: opacity 0.3s ease, 
-                transform 0.3s ease,
-                backdrop-filter 0.3s ease,
-                box-shadow 0.3s ease;
+    transition: opacity 0.3s ease,
+        transform 0.3s ease,
+        backdrop-filter 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .hobby-card-4 a:hover img {
@@ -3243,12 +3475,12 @@ body {
     padding-top: 60px;
     display: block;
     border-top: 1px solid rgba(135, 206, 250, 0.2);
-    box-shadow: 
+    box-shadow:
         0 -4px 20px rgba(135, 206, 250, 0.12),
         inset 0 2px 4px rgba(255, 255, 255, 0.15),
         0 0 40px rgba(135, 206, 250, 0.08);
     transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: opacity, transform;
 }
 
@@ -3275,9 +3507,9 @@ body {
     border: 1px solid rgba(135, 206, 250, 0.2);
     float: none;
     cursor: pointer;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -3285,7 +3517,7 @@ body {
     justify-content: center;
     background: rgba(135, 206, 250, 0.08);
     border-radius: 12px;
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(135, 206, 250, 0.12),
         inset 0 2px 4px rgba(255, 255, 255, 0.15),
         0 0 40px rgba(135, 206, 250, 0.08);
@@ -3298,9 +3530,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(135, 206, 250, 0.12) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(135, 206, 250, 0.12) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -3314,7 +3546,7 @@ body {
 .foot_info_main ul li:hover {
     transform: translateY(-5px) scale(1.02);
     background: rgba(135, 206, 250, 0.12);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(135, 206, 250, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
@@ -3333,8 +3565,8 @@ body {
     text-decoration: none;
     font-variant: small-caps;
     border-radius: 20px;
-    transition: box-shadow 0.3s ease, 
-                transform 0.3s ease;
+    transition: box-shadow 0.3s ease,
+        transform 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), inset 0 2px 0 rgba(255, 255, 255, 0.15);
     position: relative;
     z-index: 1;
@@ -3388,7 +3620,7 @@ body {
 .uname1_items {
     background: rgba(250, 112, 154, 0.12);
     border: 1px solid rgba(250, 112, 154, 0.3);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(250, 112, 154, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         inset 0 -1px 0 rgba(255, 255, 255, 0.15),
@@ -3404,9 +3636,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(250, 112, 154, 0.12) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(250, 112, 154, 0.12) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -3423,7 +3655,7 @@ body {
 
 .uname1_items:hover {
     background: rgba(250, 112, 154, 0.18);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(250, 112, 154, 0.25),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
@@ -3435,7 +3667,7 @@ body {
 .qie_items {
     background: rgba(48, 207, 208, 0.12);
     border: 1px solid rgba(48, 207, 208, 0.3);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(48, 207, 208, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         inset 0 -1px 0 rgba(255, 255, 255, 0.15),
@@ -3451,9 +3683,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(48, 207, 208, 0.12) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(48, 207, 208, 0.12) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -3470,7 +3702,7 @@ body {
 
 .qie_items:hover {
     background: rgba(48, 207, 208, 0.18);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(48, 207, 208, 0.25),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
@@ -3482,7 +3714,7 @@ body {
 .pan_items {
     background: rgba(67, 233, 123, 0.12);
     border: 1px solid rgba(67, 233, 123, 0.3);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(67, 233, 123, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         inset 0 -1px 0 rgba(255, 255, 255, 0.15),
@@ -3498,9 +3730,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(67, 233, 123, 0.12) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(67, 233, 123, 0.12) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -3517,7 +3749,7 @@ body {
 
 .pan_items:hover {
     background: rgba(67, 233, 123, 0.18);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(67, 233, 123, 0.25),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
@@ -3529,7 +3761,7 @@ body {
 .email_items {
     background: rgba(210, 153, 194, 0.12);
     border: 1px solid rgba(210, 153, 194, 0.3);
-    box-shadow: 
+    box-shadow:
         0 4px 24px rgba(210, 153, 194, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.3),
         inset 0 -1px 0 rgba(255, 255, 255, 0.15),
@@ -3545,9 +3777,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-        rgba(210, 153, 194, 0.12) 0%, 
-        transparent 40%);
+    background: radial-gradient(circle at 50% 50%,
+            rgba(210, 153, 194, 0.12) 0%,
+            transparent 40%);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -3564,7 +3796,7 @@ body {
 
 .email_items:hover {
     background: rgba(210, 153, 194, 0.18);
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(210, 153, 194, 0.25),
         inset 0 1px 0 rgba(255, 255, 255, 0.4),
         inset 0 -1px 0 rgba(255, 255, 255, 0.2),
@@ -3616,15 +3848,15 @@ body {
     display: block;
 }
 
-.weixin_icon:hover + .weixin_img {
+.weixin_icon:hover+.weixin_img {
     display: block;
 }
 
-.dingding_icon:hover + .dingding_img {
+.dingding_icon:hover+.dingding_img {
     display: block;
 }
 
-.qq_icon:hover + .qq_img {
+.qq_icon:hover+.qq_img {
     display: block;
 }
 
@@ -3656,9 +3888,11 @@ body {
     0% {
         transform: rotate(-120deg) translateX(10px) rotate(120deg);
     }
+
     60% {
         transform: rotate(-24deg) translateX(250px) rotate(24deg);
     }
+
     100% {
         transform: rotate(0deg) translateX(200px) rotate(-0deg);
     }
@@ -3668,9 +3902,11 @@ body {
     0% {
         transform: rotate(0deg) translateX(10px) rotate(-0deg);
     }
+
     60% {
         transform: rotate(96deg) translateX(250px) rotate(-96deg);
     }
+
     100% {
         transform: rotate(120deg) translateX(200px) rotate(-120deg);
     }
@@ -3680,9 +3916,11 @@ body {
     0% {
         transform: rotate(120deg) translateX(10px) rotate(-120deg);
     }
+
     60% {
         transform: rotate(216deg) translateX(250px) rotate(-216deg);
     }
+
     100% {
         transform: rotate(240deg) translateX(200px) rotate(-240deg);
     }
@@ -3692,6 +3930,7 @@ body {
     0% {
         transform: perspective(200px) rotateY(0deg)
     }
+
     100% {
         transform: perspective(200px) rotateY(720deg);
     }
@@ -3701,6 +3940,7 @@ body {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -3710,16 +3950,20 @@ body {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(-360deg);
     }
 }
 
 @keyframes glow {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.3;
         transform: translate(-50%, -50%) scale(1);
     }
+
     50% {
         opacity: 0.6;
         transform: translate(-50%, -50%) scale(1.1);
@@ -3727,10 +3971,13 @@ body {
 }
 
 @keyframes breathe {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.3;
         transform: scale(1);
     }
+
     50% {
         opacity: 0.6;
         transform: scale(1.05);
@@ -3738,12 +3985,19 @@ body {
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
         transform: translateY(0);
     }
+
     40% {
         transform: translateY(-10px);
     }
+
     60% {
         transform: translateY(-5px);
     }
@@ -3822,122 +4076,122 @@ body {
         pointer-events: none;
         transform: translateY(-20px);
         transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
-    .box02_content #box02_text p {
-        font-size: 16px;
-    }
+.box02_content #box02_text p {
+    font-size: 16px;
+}
 
-    .box02_content #bar_container {
-        width: 90%;
-        margin: 0 auto;
-        float: none;
-    }
+.box02_content #bar_container {
+    width: 90%;
+    margin: 0 auto;
+    float: none;
+}
 
-    .box04_content {
-        width: auto;
-        top: 10%;
-        left: 2%;
-        height: 85%;
-    }
+.box04_content {
+    width: auto;
+    top: 10%;
+    left: 2%;
+    height: 85%;
+}
 
-    .box04_title {
-        font-size: 22px;
-        margin-bottom: 25px;
-    }
+.box04_title {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
 
-    .bq li {
-        width: calc(80% - 15px);
-    }
+.bq li {
+    width: calc(80% - 15px);
+}
 
-    #bar_container .bar {
-        margin: 30px 0;
-    }
+#bar_container .bar {
+    margin: 30px 0;
+}
 
-    .box03_content {
-        width: 90%;
-        left: 5%;
-    }
+.box03_content {
+    width: 90%;
+    left: 5%;
+}
 
-    .float_btn {
-        right: 1em;
-    }
+.float_btn {
+    right: 1em;
+}
 
-    .foot_info_main {
-        width: 90%;
-        margin: 0 auto;
-    }
+.foot_info_main {
+    width: 90%;
+    margin: 0 auto;
+}
 
-    .foot_info_main ul li {
-        margin: 0px 0 16px 0;
-        width: 20%;
-    }
+.foot_info_main ul li {
+    margin: 0px 0 16px 0;
+    width: 20%;
+}
 
-    .foot_info_main ul li a {
-        background: none;
-    }
+.foot_info_main ul li a {
+    background: none;
+}
 
-    .cycle_item {
-        width: 340px;
-        height: 340px;
-        transform: scale(1);
-    }
+.cycle_item {
+    width: 340px;
+    height: 340px;
+    transform: scale(1);
+}
 
-    .head_img {
-        margin: 80px;
-        width: 170px;
-        height: 170px;
-    }
+.head_img {
+    margin: 80px;
+    width: 170px;
+    height: 170px;
+}
 
-    .cycle_a {
-        margin: 140px 119px;
-    }
+.cycle_a {
+    margin: 140px 119px;
+}
 
-    .green_cycle_img {
-        margin: 59.5px;
-        width: 221px;
-        height: 221px;
-    }
+.green_cycle_img {
+    margin: 59.5px;
+    width: 221px;
+    height: 221px;
+}
 
-    .yellow_cycle_img {
-        margin: 68px;
-        width: 204px;
-        height: 204px;
-    }
+.yellow_cycle_img {
+    margin: 68px;
+    width: 204px;
+    height: 204px;
+}
 
-    .blue_cycle_img {
-        margin: 76.5px;
-        width: 187px;
-        height: 187px;
-    }
+.blue_cycle_img {
+    margin: 76.5px;
+    width: 187px;
+    height: 187px;
+}
 
-    .box03_content {
-        width: 90%;
-        left: 5%;
-        right: 5%;
-        top: 10%;
-        height: 70%;
-    }
+.box03_content {
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    top: 10%;
+    height: 70%;
+}
 
-    .timeUl li div h1 {
-        font-size: 24px;
-        line-height: 36px;
-    }
+.timeUl li div h1 {
+    font-size: 24px;
+    line-height: 36px;
+}
 
-    .timeUl li div p {
-        font-size: 16px;
-        line-height: 24px;
-    }
+.timeUl li div p {
+    font-size: 16px;
+    line-height: 24px;
+}
 
-    .left_div {
-        left: 40px;
-    }
+.left_div {
+    left: 40px;
+}
 
-    .right_div {
-        right: 40px;
-    }
+.right_div {
+    right: 40px;
+}
 
 @media screen and (max-width: 700px) {
     .head {
@@ -3970,12 +4224,12 @@ body {
         width: 84px;
         height: 35px;
         border-radius: 25px;
-        transition: background 2s cubic-bezier(0.4, 0, 0.2, 1), 
-                    box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 2s cubic-bezier(0.4, 0, 0.2, 1),
-                    margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background 2s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 2s cubic-bezier(0.4, 0, 0.2, 1),
+            margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         animation-duration: 1.8s;
         animation-timing-function: ease;
         animation-iteration-count: 1;
@@ -4003,9 +4257,9 @@ body {
         transform: translate(-50%, -50%);
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(66, 201, 163, 0.4) 0%, 
-            transparent 60%);
+        background: radial-gradient(circle at 50% 50%,
+                rgba(66, 201, 163, 0.4) 0%,
+                transparent 60%);
         pointer-events: none;
         animation: glow 1.8s ease-in-out infinite;
     }
@@ -4030,9 +4284,9 @@ body {
         transform: translate(-50%, -50%);
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(109, 179, 217, 0.4) 0%, 
-            transparent 60%);
+        background: radial-gradient(circle at 50% 50%,
+                rgba(109, 179, 217, 0.4) 0%,
+                transparent 60%);
         pointer-events: none;
         animation: glow 1.8s ease-in-out infinite;
     }
@@ -4057,9 +4311,9 @@ body {
         transform: translate(-50%, -50%);
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(98, 116, 127, 0.4) 0%, 
-            transparent 60%);
+        background: radial-gradient(circle at 50% 50%,
+                rgba(98, 116, 127, 0.4) 0%,
+                transparent 60%);
         pointer-events: none;
         animation: glow 1.8s ease-in-out infinite;
     }
@@ -4100,9 +4354,9 @@ body {
     }
 
     #item_1:hover::before {
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(66, 201, 163, 0.6) 0%, 
-            transparent 50%);
+        background: radial-gradient(circle at 50% 50%,
+                rgba(66, 201, 163, 0.6) 0%,
+                transparent 50%);
     }
 
     #item_2:hover {
@@ -4110,9 +4364,9 @@ body {
     }
 
     #item_2:hover::before {
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(109, 179, 217, 0.6) 0%, 
-            transparent 50%);
+        background: radial-gradient(circle at 50% 50%,
+                rgba(109, 179, 217, 0.6) 0%,
+                transparent 50%);
     }
 
     #item_3:hover {
@@ -4120,9 +4374,9 @@ body {
     }
 
     #item_3:hover::before {
-        background: radial-gradient(circle at 50% 50%, 
-            rgba(98, 116, 127, 0.6) 0%, 
-            transparent 50%);
+        background: radial-gradient(circle at 50% 50%,
+                rgba(98, 116, 127, 0.6) 0%,
+                transparent 50%);
     }
 
     .box01_content .title {
@@ -4240,7 +4494,7 @@ body {
         pointer-events: none;
         transform: translateY(-20px);
         transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .time-drag-handle {
@@ -4503,13 +4757,13 @@ body {
         height: 180px;
         margin: 80px;
         transform: perspective(400px) rotateY(0deg);
-        transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            margin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .head_img:hover {
@@ -4545,12 +4799,12 @@ body {
         width: 100px;
         height: 42px;
         border-radius: 25px;
-        transition: background 2s cubic-bezier(0.4, 0, 0.2, 1), 
-                    box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1),
-                    transform 2s cubic-bezier(0.4, 0, 0.2, 1),
-                    margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                    height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background 2s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 2s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 2s cubic-bezier(0.4, 0, 0.2, 1),
+            margin 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         animation-duration: 1.8s;
         animation-timing-function: ease;
         animation-iteration-count: 1;

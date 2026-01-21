@@ -47,7 +47,7 @@
     let currentIndex = 0;
     let isPlaying = false;
     let playMode = 0;
-    const modeIcons = ['🔁', '🔀', '1️⃣'];
+    const modeClasses = ['mode-sequence', 'mode-random', 'mode-single'];
     const modeNames = ['顺序播放', '随机播放', '单曲循环'];
 
     let preloadedAudios = {};
@@ -181,6 +181,11 @@
         playlist = scanMusicFiles();
         renderPlaylist();
         loadSong(currentIndex);
+        
+        // 初始化播放模式图标
+        modeIcon.classList.remove('mode-single', 'mode-random', 'mode-sequence');
+        modeIcon.classList.add(modeClasses[playMode]);
+        modeBtn.setAttribute('aria-label', modeNames[playMode]);
 
         const savedVolume = localStorage.getItem('musicVolume');
         if (savedVolume !== null) {
@@ -428,7 +433,14 @@
 
     modeBtn.addEventListener('click', function() {
         playMode = (playMode + 1) % 3;
-        modeIcon.textContent = modeIcons[playMode];
+        
+        // 移除所有模式类
+        modeIcon.classList.remove('mode-single', 'mode-random', 'mode-sequence');
+        // 添加当前模式类
+        modeIcon.classList.add(modeClasses[playMode]);
+        
+        // 更新按钮提示
+        modeBtn.setAttribute('aria-label', modeNames[playMode]);
 
         if (playMode === 2) {
             bgMusic.loop = true;
